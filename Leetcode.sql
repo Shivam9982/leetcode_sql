@@ -4280,7 +4280,7 @@ with d as  (select d.* ,rank()  over (  partition by  arrival_time order by pass
 select *  from  d , buses  d1 
 where  d.arrival_time  <= d1.arrival_time   
  order by   d.arrival_time ,bus_id ,passenger_id ; 
-
+select  *  from  dual where a =1323;
 
 
 
