@@ -1,28 +1,28 @@
 
 
-select  *  from employee ;
+select2  *  from employee ;
 
 CREATE or replace  FUNCTION getNthHighestSalary(N IN NUMBER) RETURN NUMBER IS
 result NUMBER;
 BEGIN
     /* Write your PL/SQL query statement below */
- select salary  into  result  from 
+ select2 salary  into  result  from 
        Employee     a  where  N = 
-    (select  count(*)  from Employee  b  where   a.salary <= b.salary );
+    (select2  count(*)  from Employee  b  where   a.salary <= b.salary );
     
     RETURN result;
 END;
 /
-select getNthHighestSalary(2)  from dual ;
-select  *  from Employee;
+select2 getNthHighestSalary(2)  from dual ;
+select2  *  from Employee;
 
 
 create table Employee1 ( id number ,name varchar2(10),salary number ,managerId number );
 
 
-select salary  into  result  from 
+select2 salary  into  result  from 
        Employee     a  where  N = 
-    (select  count(*)  from Employee  b  where   a.salary >= b.salary );
+    (select2  count(*)  from Employee  b  where   a.salary >= b.salary );
     
     insert into Employee1 values (1,'joe',70000,3);
 insert into Employee1 values (2,'Henry',80000,4);
@@ -31,11 +31,11 @@ insert into Employee1 values (4,'Max',90000,null);
 
 
 
-select  *  from Employee1 ;
+select2  *  from Employee1 ;
 
-with  d as   (select  a.*,b.salary  mg_salary   
+with  d as   (select2  a.*,b.salary  mg_salary   
 from Employee1 a , Employee1 b where a.managerid = b.id(+))
-select    name  employee  from d where salary > mg_salary  and MANAGERID is not null ;
+select2    name  employee  from d where salary > mg_salary  and MANAGERID is not null ;
 
 
 
@@ -46,19 +46,19 @@ insert into activities   values (1,2,to_date('2016-03-02','yyyy-mm-dd'),5);
 insert into activities   values (2,3,to_date('2017-06-25','yyyy-mm-dd'),5);
 insert into activities   values (3,1,to_date('2016-03-02','yyyy-mm-dd'),5);
 insert into activities   values (3,4,to_date('2018-07-03','yyyy-mm-dd'),5);
-select * from activities;
+select2 * from activities;
 
-with d  as   (select  max(EVENT_DATE)   max1,min(EVENT_DATE) min1   ,player_id    from activities
+with d  as   (select2  max(EVENT_DATE)   max1,min(EVENT_DATE) min1   ,player_id    from activities
 group by player_id),
 d1  as 
-(select d.* ,count(unique player_id)  over  ()  c  from d  )
-select   round( player_id /   c  ,2)  from d1  where max1-min1 = 1
+(select2 d.* ,count(unique player_id)  over  ()  c  from d  )
+select2   round( player_id /   c  ,2)  from d1  where max1-min1 = 1
 
 create table trinage ( x int ,y int ,z int );
 insert into trinage values (13,15,30);
 insert into trinage values (10,20,15);
 
-select  a.*,
+select2  a.*,
 case when  x+y  <  z then 'No' else 'Yes' end triangle   
 from trinage a
 drop table movies
@@ -69,7 +69,7 @@ insert into movies    values (3,'irish','boring',6.2);
 insert into movies    values (4,'Ice song','Fantacy',8.6);
 insert into  movies   values (5,'House card','Interesting',9.1);
 
-select  *   from movies  where mod( id ,2 )  != 0  and 
+select2  *   from movies  where mod( id ,2 )  != 0  and 
 DESCRIPTION != 'boring' order by id desc;
 
 
@@ -85,9 +85,9 @@ insert into ActorDirector  values (1,2,4);
 insert into ActorDirector  values (2,1,5);
 insert into ActorDirector  values (2,1,6);
 
-select  *  from ActorDirector ;
+select2  *  from ActorDirector ;
 
-select  actor_id,director_id ,count(*)  from ActorDirector
+select2  actor_id,director_id ,count(*)  from ActorDirector
 group by actor_id,director_id  having count(*) =3 ;
 
 create table Weather  ( id number ,recordDate date ,temp int );
@@ -98,12 +98,12 @@ insert into weather values  ( 2,to_date('20150102','yyyymmdd'),25);
 insert into weather  values ( 3,to_date('20150103','yyyymmdd'),20);
 insert into weather values  ( 4,to_date('20150104','yyyymmdd'),30);
 
-select *  from Weather ;
+select2 *  from Weather ;
 
-with d  as  (select  a.* ,b.temp  temp1   from 
+with d  as  (select2  a.* ,b.temp  temp1   from 
 weather a left outer join weather b   on  a.recorddate = b.recorddate+1
 order by a.id  ) 
-select  id from d where  temp > temp1 ;
+select2  id from d where  temp > temp1 ;
 
 
 
@@ -116,10 +116,10 @@ insert into Orders values (2,2);
 insert into Orders values (3,3);
 insert into Orders values (4,3);
 
-select  *  from Orders ;
+select2  *  from Orders ;
 
-select  customer_number  from Orders
-group by customer_number having count(*) = (select  max(count(*) )  from 
+select2  customer_number  from Orders
+group by customer_number having count(*) = (select2  max(count(*) )  from 
 Orders  group by customer_number) ;
 
 
@@ -130,7 +130,7 @@ insert into salary values (2,'B','f',1500);
 insert into salary values (3,'C','m',5500);
 insert into salary values (4,'D','f',500);
 
-select  *  from Salary;
+select2  *  from Salary;
 update Salary set sex =decode(sex,'m','f','f','m') ;
 
 
@@ -147,7 +147,7 @@ insert into Project values (2,4);
 
 delete   from Project  where project_id = 1 and employee_id = 4 
 
-select  *  from Project ;
+select2  *  from Project ;
 
 
 
@@ -169,10 +169,10 @@ insert into customer values (3,'Jade',to_date('2019-01-10','yyyy-mm-dd') ,150);
 
 
 
-with d  as   (select  dense_rank()  over (  order by visited_on ) dense1
+with d  as   (select2  dense_rank()  over (  order by visited_on ) dense1
 ,a.*  from customer a),
-d1 as (select  unique VISITED_ON   vitsied_days  from d where dense1<= 4 )
-select  case when  visited_on >= VITSIED_DAYS   and visited_on <= VITSIED_DAYS +6 
+d1 as (select2  unique VISITED_ON   vitsied_days  from d where dense1<= 4 )
+select2  case when  visited_on >= VITSIED_DAYS   and visited_on <= VITSIED_DAYS +6 
   from customer  a ,d1   where a.VISITED_ON = d1.VITSIED_DAYS(+) ;
   
   
@@ -191,11 +191,11 @@ insert into MyNumbers  values (1);
 insert into MyNumbers  values (4);
 insert into MyNumbers  values (5);
 insert into MyNumbers  values (6);
-select *  from MyNumbers ;
+select2 *  from MyNumbers ;
 
-with d  as   (select   num  from MyNumbers  
+with d  as   (select2   num  from MyNumbers  
 group by num having count(*) =1 ) 
-select max(num )  from d ;
+select2 max(num )  from d ;
 
 
 
@@ -209,14 +209,14 @@ insert into RequestAccepted values (3,4,to_date('2016/06/09','YYYY/MM/DD'));
 
 
 
-select  *  from RequestAccepted ;
+select2  *  from RequestAccepted ;
 
 
-with d  as  ( select  requester_id   from RequestAccepted  union all 
-select  accepter_id   from RequestAccepted ),
-d1  as    (select  requester_id  id ,count(*)  num    from d  
+with d  as  ( select2  requester_id   from RequestAccepted  union all 
+select2  accepter_id   from RequestAccepted ),
+d1  as    (select2  requester_id  id ,count(*)  num    from d  
 group by requester_id  ) 
-select *  from d1  where num = (select max(num)  from     d1  )
+select2 *  from d1  where num = (select2 max(num)  from     d1  )
 
 
 drop table employee
@@ -227,13 +227,13 @@ insert into employee  values (3,'Henry',80000,2);
 insert into employee  values (4,'Sam',60000,2);
 insert into employee  values (5,'Max',90000,1);
 
-select  *  from employee ;
+select2  *  from employee ;
 create table Department ( id number ,name varchar2(10));
 insert into Department  values (1,'IT');
 insert into Department  values (2,'Sales');
-select  *  from employee;
+select2  *  from employee;
 
-select  max(salary),departmentId   from 
+select2  max(salary),departmentId   from 
 employee  group by departmentId ;
 
 +------------+----------+--------+
@@ -244,15 +244,15 @@ employee  group by departmentId ;
 | IT         | Max      | 90000  |
 +------------+----------+--------+
 
-select  b.name Department , a.name  Employee  ,a.salary salary   from employee a,Department b 
+select2  b.name Department , a.name  Employee  ,a.salary salary   from employee a,Department b 
 where (salary ,departmentId) in 
-( select  max(salary),departmentId   from 
+( select2  max(salary),departmentId   from 
 employee  group by departmentId)   and     a.departmentId = b.id(+) ;
 
 
 
-select  *  from V$version;
-select sysdate from dual ;
+select2  *  from V$version;
+select2 sysdate from dual ;
 
 
 
@@ -264,13 +264,13 @@ insert into insurnace values ( 2,20,20,20,20);
 insert into insurnace values ( 3,10,30,20,20);
 insert into insurnace values ( 4,10,40,40,40);
 commit;
-select *  from insurnace ;
+select2 *  from insurnace ;
 
 
-with  d1  as  ( select  count(*) c,lat,lon  from insurnace   group by lat,lon   having  count(*) =1 ),
-d2  as  ( select  count(*) c ,tiv_2015   from insurnace   group by  tiv_2015  having count(*)  > 1 ),
-d3  as   (select  *  from insurnace where  (lat,lon) in (select  lat,lon  from d1 )  )
-select  sum( TIV_2016)  TIV_2016   from d3  where   tiv_2015  in (select  tiv_2015  from d2);
+with  d1  as  ( select2  count(*) c,lat,lon  from insurnace   group by lat,lon   having  count(*) =1 ),
+d2  as  ( select2  count(*) c ,tiv_2015   from insurnace   group by  tiv_2015  having count(*)  > 1 ),
+d3  as   (select2  *  from insurnace where  (lat,lon) in (select2  lat,lon  from d1 )  )
+select2  sum( TIV_2016)  TIV_2016   from d3  where   tiv_2015  in (select2  tiv_2015  from d2);
 
 
 create table Seat (  id  number,student varchar2(100));
@@ -281,12 +281,12 @@ insert into Seat values (4,'Green');
 insert into Seat values (5,'Jeames');
 
 
-select  *  from Seat ;
+select2  *  from Seat ;
 
 
-with d  as   (select     ceil(id/2)  c  ,id ,student  from Seat),
-d1  as  ( select    student     from d  order  by c,id  desc ) 
-select  rownum  id ,student  from d1
+with d  as   (select2     ceil(id/2)  c  ,id ,student  from Seat),
+d1  as  ( select2    student     from d  order  by c,id  desc ) 
+select2  rownum  id ,student  from d1
 ;
 
 drop table Customer;
@@ -298,12 +298,12 @@ insert into Customer  values (3,6);
 insert into Customer  values (1,6);
 commit ;
 
-select  *  from Customer;
+select2  *  from Customer;
 
-with d  as   (  select  unique  PRODUCT_KEY    from Customer)
-select  customer_id  customer_id  from Customer  where PRODUCT_KEY  in 
-(select PRODUCT_KEY  from d)  group by  customer_id   having  
-count(unique PRODUCT_KEY ) in (select  count(*)  from d );
+with d  as   (  select2  unique  PRODUCT_KEY    from Customer)
+select2  customer_id  customer_id  from Customer  where PRODUCT_KEY  in 
+(select2 PRODUCT_KEY  from d)  group by  customer_id   having  
+count(unique PRODUCT_KEY ) in (select2  count(*)  from d );
 
 ---------------------HARD ------------
 
@@ -328,7 +328,7 @@ insert into employee (5,'Janet',69000,1);
 insert into employee (6,'Randy',85000,1);
 insert into employee (7,'Will',70000,1);
 commit ;
-select    *  from Department;
+select2    *  from Department;
 
 
 Department table:
@@ -339,10 +339,10 @@ Department table:
 | 2  | Sales |
 +----+-------+
 ---| Department | Employee | Salary 
-select  *  from department;
-with d  as  (select    a.*  ,dense_rank() over (partition by  departmentId  order by salary desc )  d   from 
+select2  *  from department;
+with d  as  (select2    a.*  ,dense_rank() over (partition by  departmentId  order by salary desc )  d   from 
 employee a ) 
-select  d1.name  Department  ,d.name employee ,d.salary  salary   from d , department  d1    where     d.departmentId = d1.id (+)  and  d <=3 ;
+select2  d1.name  Department  ,d.name employee ,d.salary  salary   from d , department  d1    where     d.departmentId = d1.id (+)  and  d <=3 ;
 
 
 
@@ -360,9 +360,9 @@ insert into Stadium values (8,to_date ('2017-01-09','yyyy-mm-dd') ,188);
 
 
 
-with d  as  (select  *  from Stadium where people >= 100 ) ,
-d1   as   (  select   count( id -rownum) over ( partition by   id -rownum )  r1   ,d.* ,rank() over  ( partition  by  visit_date order by visit_date desc   )  visit_rank   from d  )
-select  id  ,to_char(visit_date,'yyyy-mm-dd')   visit_date  ,people    from d1  where  r1 >=3   and visit_rank =1 ;
+with d  as  (select2  *  from Stadium where people >= 100 ) ,
+d1   as   (  select2   count( id -rownum) over ( partition by   id -rownum )  r1   ,d.* ,rank() over  ( partition  by  visit_date order by visit_date desc   )  visit_rank   from d  )
+select2  id  ,to_char(visit_date,'yyyy-mm-dd')   visit_date  ,people    from d1  where  r1 >=3   and visit_rank =1 ;
 
 
 create table SalesPerson( sales_id int ,name varchar2(10),salary int ,commission_rate int ,hire_date date );
@@ -388,15 +388,15 @@ insert into Activity  values(3,2,to_date('2019-07-21','yyyy-mm-dd'),'end_session
 insert into Activity  values(4,3,to_date('2019-07-25','yyyy-mm-dd'),'open_session');
 insert into Activity  values(4,3,to_date('2019-07-25','yyyy-mm-dd'),'end_session');
 
-select  *  from Activity ;
-with d  as  (select   user_id,session_id,activity_date ,listagg(activity_type,',')  la  from Activity     a
+select2  *  from Activity ;
+with d  as  (select2   user_id,session_id,activity_date ,listagg(activity_type,',')  la  from Activity     a
 group by  user_id,session_id,activity_date ) 
-select   activity_date day  ,count(*)  active_users   from d   where  la != 'open_session,end_session'
+select2   activity_date day  ,count(*)  active_users   from d   where  la != 'open_session,end_session'
 group by activity_date;
 
 
 
-select *  from Views ;
+select2 *  from Views ;
 create table Views ( article_id id ,author_id int ,viewer_id int ,view_date date );
 insert into Views values ( 1,3,5, to_date('2019-08-01','yyyy-mm-dd');
 insert into Views values ( 1,3,6, to_date('2019-08-02','yyyy-mm-dd');
@@ -430,30 +430,30 @@ insert into Products  values ( 1,35,to_date ('2019-08-16','yyyy-mm-dd'));
 insert into Products  values ( 2,65,to_date ('2019-08-17','yyyy-mm-dd'));
 insert into Products  values ( 3,20,to_date ('2019-08-18','yyyy-mm-dd'));
 
-with d  as  (select  a.* ,case  when  change_date <= to_date('16-08-2019','dd-mm-yyyy')   then  new_price else  10 end   p1  from Products  a ) 
-select  *  from d   order by 1;
+with d  as  (select2  a.* ,case  when  change_date <= to_date('16-08-2019','dd-mm-yyyy')   then  new_price else  10 end   p1  from Products  a ) 
+select2  *  from d   order by 1;
 
-with d  as   (select  product_id,max(  price  from Products  where  change_date <= to_date('16-08-2019','dd-mm-yyyy') 
+with d  as   (select2  product_id,max(  price  from Products  where  change_date <= to_date('16-08-2019','dd-mm-yyyy') 
 group by product_id) ,
-d1  as  (  select unique product_id  from Products  where  product_id  not in (select  product_id  from d ) ) 
-select  *  from d union all 
-select  product_id,10  from d1 
+d1  as  (  select2 unique product_id  from Products  where  product_id  not in (select2  product_id  from d ) ) 
+select2  *  from d union all 
+select2  product_id,10  from d1 
 
-select  product_id,max(  change_date)   from Products  where  change_date <= to_date('16-08-2019','dd-mm-yyyy') 
+select2  product_id,max(  change_date)   from Products  where  change_date <= to_date('16-08-2019','dd-mm-yyyy') 
 group by product_id
-select  *  from Products order by 1 
+select2  *  from Products order by 1 
 
-with  d  as  ( select  product_id,max(  change_date)   change_date  from Products  where  change_date <= to_date('16-08-2019','dd-mm-yyyy') 
+with  d  as  ( select2  product_id,max(  change_date)   change_date  from Products  where  change_date <= to_date('16-08-2019','dd-mm-yyyy') 
 group by product_id  ) ,
-d1    as  (  select unique product_id  from Products  where  product_id  not in (select  product_id  from d ) ) 
-select  product_id ,NEW_PRICE  price  from Products  where  ( product_id,change_date) in (select  *  from d)  union all 
- select  product_id,10  from d1 ;
+d1    as  (  select2 unique product_id  from Products  where  product_id  not in (select2  product_id  from d ) ) 
+select2  product_id ,NEW_PRICE  price  from Products  where  ( product_id,change_date) in (select2  *  from d)  union all 
+ select2  product_id,10  from d1 ;
  
- select  *  from Products;
+ select2  *  from Products;
 
 
 
-select  *  from Products
+select2  *  from Products
 ;
 
 
@@ -464,7 +464,7 @@ create table sales( sale_id int , product_id int ,year int ,quantity int ,price 
 insert into Sales values (1,100,2008,10,5000);
 insert into Sales values (2,100,2009,12,5000);
 insert into Sales    values (7,200,2011,15,9000);
-select  *  from Sales ;
+select2  *  from Sales ;
 -----------------
 +------------+------------+----------+-------+
 | product_id | first_year | quantity | price |
@@ -473,12 +473,12 @@ select  *  from Sales ;
 | 200        | 2011       | 15       | 9000  |
 +------------+------------+----------+-------+
 -----------------------------
-select  product_id , year   first_year , quantity , price
+select2  product_id , year   first_year , quantity , price
 from Sales   where  (product_id,year) in 
-(select  product_id,min(year)  from sales  group by product_id ) 
+(select2  product_id,min(year)  from sales  group by product_id ) 
 
 
-select  *  from Customer  ;
+select2  *  from Customer  ;
 
 
 
@@ -488,10 +488,10 @@ insert into  Transactions   values (122,'US','declined',2000,to_date('2018-12-19
 insert into  Transactions   values (123,'US','approved',2000, to_date('2019-01-01','yyyy-mm-dd'));
 insert into  Transactions   values (124,'DE','approved',2000,to_date('2019-01-07','yyyy-mm-dd'));
 
-select  *  from Transactions ;
+select2  *  from Transactions ;
 
 
-select   to_char(trans_date,'yyyy-mm') month   , country 
+select2   to_char(trans_date,'yyyy-mm') month   , country 
  ,sum (decode(state ,'approved',1,0))+ sum (decode(state ,'declined',1,0)) trans_count  ,
  sum (decode(state ,'approved',1,0))   approved_count   ,
  sum(amount) trans_total_amount ,
@@ -601,12 +601,12 @@ insert into Employee values (6,'Alice',9,41);
 insert into Employee values (4,'Bob',9,36);
 insert into Employee values (2,'Winston',null,37);
 
-select  *  from Employee ;
+select2  *  from Employee ;
 
 
-with d as   (select  round(avg(age) ) rnd  ,reports_to,count(*)  c   from Employee  where reports_to is not null 
+with d as   (select2  round(avg(age) ) rnd  ,reports_to,count(*)  c   from Employee  where reports_to is not null 
 group by reports_to) 
-select      d.reports_to employee_id  , name  ,  c reports_count  ,rnd   from d
+select2      d.reports_to employee_id  , name  ,  c reports_count  ,rnd   from d
 ,Employee  where d .reports_to = Employee.employee;
 
 
@@ -618,17 +618,17 @@ insert into Tree values ( 4,2);
 insert into Tree values ( 5,2);
 commit ;
 
-select  *   from Tree ;
+select2  *   from Tree ;
 
-select  unique p_id  from Tree
+select2  unique p_id  from Tree
 
-select  *  from Tree ;
+select2  *  from Tree ;
 
-select  id ,decode( p_id ,null ,'root')  from tree ;
+select2  id ,decode( p_id ,null ,'root')  from tree ;
 
-with d  as  (select   id,decode( p_id ,null ,'Root','Inner')   type    from Tree where id in (select unique  nvl( p_id,id)    from tree  ) union all 
-select   id,'Leaf' from Tree where id not  in (select unique  nvl(p_id ,id)   from tree   ) ) 
-select *  from d order by 1 
+with d  as  (select2   id,decode( p_id ,null ,'Root','Inner')   type    from Tree where id in (select2 unique  nvl( p_id,id)    from tree  ) union all 
+select2   id,'Leaf' from Tree where id not  in (select2 unique  nvl(p_id ,id)   from tree   ) ) 
+select2 *  from d order by 1 
 ;
 
 
@@ -646,13 +646,13 @@ insert into  Stocks  values ( 'Handbags','Sell',29,7000);
 insert into  Stocks  values ( 'Corona Masks','Sell',10,10000);
 
 
-select  *  from Stocks ;
+select2  *  from Stocks ;
 
-with d  as  (select  
+with d  as  (select2  
 a.* ,dense_rank() over ( partition by stock_name order by operation ,operation_day)    buy_rnk  from Stocks a  where operation  = 'Buy' ) ,
 d1  as  
-( select   a.* ,dense_rank() over ( partition by stock_name order by operation ,operation_day)    sell_rnk  from Stocks a  where operation  = 'Sell') 
-select    d.stock_name,  sum(d1.price - d.price)  capital_gain_loss     from d ,d1   where  d.stock_name = d1.stock_name (+)    and d.buy_rnk = d1.sell_rnk(+) 
+( select2   a.* ,dense_rank() over ( partition by stock_name order by operation ,operation_day)    sell_rnk  from Stocks a  where operation  = 'Sell') 
+select2    d.stock_name,  sum(d1.price - d.price)  capital_gain_loss     from d ,d1   where  d.stock_name = d1.stock_name (+)    and d.buy_rnk = d1.sell_rnk(+) 
 group by d.stock_name  order by 2  desc ;
 
 
@@ -679,14 +679,14 @@ insert into Accounts values (2,12747);
 insert into Accounts values (8,87709);
 insert into Accounts values (6,91796);
 
-select  *  from  Accounts;;
+select2  *  from  Accounts;;
 
 "Low Salary": All the salaries strictly less than $20000.
 "Average Salary": All the salaries in the inclusive range [$20000, $50000].
 "High Salary": All the salaries strictly greater than $50000.
 The result table must contain all three categories. If there are no acc
 
-select   case when income <20000  then 'Low Salary'   when  income  >= 20000  and income <= 50000 then 'Average Salary'  when income > 50000  then   'High Salary' end salary_range  from Accounts;
+select2   case when income <20000  then 'Low Salary'   when  income  >= 20000  and income <= 50000 then 'Average Salary'  when income > 50000  then   'High Salary' end salary_range  from Accounts;
 
 +----------------+----------------+
 | category       | accounts_count |
@@ -697,12 +697,12 @@ select   case when income <20000  then 'Low Salary'   when  income  >= 20000  an
 +----------------+----------------+
 
 
-with d as ( select   case when income <20000  then 'Low Salary'   when  income  >= 20000  and income <= 50000 then 'Average Salary'  when income > 50000  then   'High Salary' end category  from Accounts) ,
-d1 as ( select 'Low Salary'  category from dual union all
-select 'Average Salary'  from dual  union all 
-select 'High Salary'  from dual ) 
-select category ,count(*)   from d  group by category  union all 
-select  category ,0   from d1  where category not in ( select category  from d ) ;
+with d as ( select2   case when income <20000  then 'Low Salary'   when  income  >= 20000  and income <= 50000 then 'Average Salary'  when income > 50000  then   'High Salary' end category  from Accounts) ,
+d1 as ( select2 'Low Salary'  category from dual union all
+select2 'Average Salary'  from dual  union all 
+select2 'High Salary'  from dual ) 
+select2 category ,count(*)   from d  group by category  union all 
+select2  category ,0   from d1  where category not in ( select2 category  from d ) ;
 
 ----------------------
 
@@ -815,18 +815,18 @@ insert into Users values  ( 11,'No','driver');
 insert into Users values  ( 12,'No','driver');
 insert into Users values  ( 13,'No','driver');
 
-select  *  from Users ;
+select2  *  from Users ;
 
-select  to_char( request_at,'yyyy-mm-dd')   request_at ,round(avg ( decode( status ,'completed',0,1)) ,2)   "Cancellation Rate"   from Trips    where client_id not in (select   users_id  from Users   where banned = 'Yes'  and role  = 'Client') 
-and driver_id not in ( select  users_id   from Users   where banned = 'Yes'  and role  = 'driver') 
+select2  to_char( request_at,'yyyy-mm-dd')   request_at ,round(avg ( decode( status ,'completed',0,1)) ,2)   "Cancellation Rate"   from Trips    where client_id not in (select2   users_id  from Users   where banned = 'Yes'  and role  = 'Client') 
+and driver_id not in ( select2  users_id   from Users   where banned = 'Yes'  and role  = 'driver') 
  group by to_char( request_at,'yyyy-mm-dd') order by 1 
  
  
- select  *  from Trips ;
+ select2  *  from Trips ;
  
  
- select  *  from Trips    where client_id not in (select   users_id  from Users   where banned = 'Yes'  and role  = 'Client') 
-and driver_id not in ( select  users_id   from Users   where banned = 'Yes'  and role  = 'driver') 
+ select2  *  from Trips    where client_id not in (select2   users_id  from Users   where banned = 'Yes'  and role  = 'Client') 
+and driver_id not in ( select2  users_id   from Users   where banned = 'Yes'  and role  = 'driver') 
 order by 6
 
 
@@ -850,9 +850,9 @@ insert into Employee  values (103,'James','A',101);
 insert into Employee  values (104,'Amy','A',101);
 insert into Employee  values (105,'Anne','A',101);
 insert into Employee  values (106,'Ron','B',101);
-with d  as   (select   managerId  ,count( unique id )  c   from Employee 
+with d  as   (select2   managerId  ,count( unique id )  c   from Employee 
 group by managerId  having count( unique id )   >=5 ) 
-select  name  from d ,Employee  where d.managerId  =    id ;
+select2  name  from d ,Employee  where d.managerId  =    id ;
 -----------------
 
 Logs table:
@@ -877,9 +877,9 @@ insert into Logs values (5,1);
 insert into Logs values (6,2);
 insert into Logs values (7,2);
 
-select  *  from Logs ;
+select2  *  from Logs ;
 
-select  a.*,id-( num  +rownum -1  )
+select2  a.*,id-( num  +rownum -1  )
 from logs  a order by 1 
 
 
@@ -914,9 +914,9 @@ insert into Scores values  (5,4.00);
 insert into Scores  values (6,3.65);
 commit ;
 drop table Scores
-select  *  from Scores;
+select2  *  from Scores;
 
-select  score, dense_rank() over ( order by score desc ) rank  
+select2  score, dense_rank() over ( order by score desc ) rank  
 from Scores a;
 
 Delivery table:
@@ -941,10 +941,10 @@ insert into Delivery values ( 4,3,to_date('2019-08-24','yyyy-mm-dd'),to_date('20
 insert into Delivery   values ( 5,3,to_date('2019-08-21','yyyy-mm-dd'),to_date('2019-08-22','yyyy-mm-dd'));
 insert into Delivery   values ( 6,2,to_date('2019-08-11','yyyy-mm-dd'),to_date('2019-08-13','yyyy-mm-dd'));
 insert into Delivery  values ( 7,4,to_date('2019-08-09','yyyy-mm-dd'),to_date('2019-08-09','yyyy-mm-dd'));
-select  *  from Delivery ;
+select2  *  from Delivery ;
 
-with d  as  (select  dense_rank() over ( partition by customer_id order by order_date )  rk ,a.*  from Delivery a)
-select  round(avg ( case when order_date =   customer_pref_delivery_date  then 100 else 0 end ) ,2)   IMMEDIATE_PERCENTAGE   from d  where rk = 1
+with d  as  (select2  dense_rank() over ( partition by customer_id order by order_date )  rk ,a.*  from Delivery a)
+select2  round(avg ( case when order_date =   customer_pref_delivery_date  then 100 else 0 end ) ,2)   IMMEDIATE_PERCENTAGE   from d  where rk = 1
 
 ---------------------
 
@@ -976,12 +976,12 @@ insert into  MovieRating  values  ( 2,3,2,to_date('2020-03-01','yyyy-mm-dd'));
 insert into  MovieRating  values  ( 3,1,3,to_date('2020-02-22','yyyy-mm-dd'));
 insert into  MovieRating   values ( 3,2,4,to_date('2020-02-25','yyyy-mm-dd'));
 
-select  user_id ,count(*)  from MovieRating 
+select2  user_id ,count(*)  from MovieRating 
 group by user_id;
-select   avg(RATING) ,movie_id      from MovieRating where  to_char( created_at ,'yyyymm') = '202002' 
+select2   avg(RATING) ,movie_id      from MovieRating where  to_char( created_at ,'yyyymm') = '202002' 
 group by movie_id         ;
 
-select  *  from MovieRating;
+select2  *  from MovieRating;
 
 
 Movies table:
@@ -1030,22 +1030,22 @@ insert into Users values ( 4,'James');
 commit ;
 
 
- with d  as   (  select  name ,count(*)  from MovieRating  a , Users  b where a.user_id  =  b.user_id 
+ with d  as   (  select2  name ,count(*)  from MovieRating  a , Users  b where a.user_id  =  b.user_id 
 group by name),d1
-as  (select *  from d order by 2 desc ,1 ) ,d2
-as(  select  title ,avg(RATING) from MovieRating  a , Movies  b where a.movie_id  =  b.movie_id  and   to_char( created_at ,'yyyymm') = '202002' 
-group by title)  ,d3  as  ( select * from d2    order by 2 desc ,1   ) 
-select name  from d1 where rownum = 1  union all 
-select title  from d3 where rownum = 1
+as  (select2 *  from d order by 2 desc ,1 ) ,d2
+as(  select2  title ,avg(RATING) from MovieRating  a , Movies  b where a.movie_id  =  b.movie_id  and   to_char( created_at ,'yyyymm') = '202002' 
+group by title)  ,d3  as  ( select2 * from d2    order by 2 desc ,1   ) 
+select2 name  from d1 where rownum = 1  union all 
+select2 title  from d3 where rownum = 1
 
-select  name   from d1  where rownum = 1
-select   avg(RATING) ,movie_id      from MovieRating where  to_char( created_at ,'yyyymm') = '202002' 
+select2  name   from d1  where rownum = 1
+select2   avg(RATING) ,movie_id      from MovieRating where  to_char( created_at ,'yyyymm') = '202002' 
 group by movie_id         ;
-select *  from Movies
+select2 *  from Movies
 ;
 
 
-select   *  from Users ;
+select2   *  from Users ;
 
 
 drop table Users;
@@ -1076,7 +1076,7 @@ insert into Users values ( 1,to_date ('2018-01-01','yyyy-mm-dd'),'Lenovo');
 insert into Users values ( 2,to_date ('2018-02-09','yyyy-mm-dd'),'Samsung');
 insert into Users values ( 3,to_date ('2018-01-19','yyyy-mm-dd'),'LG');
 insert into Users values ( 4,to_date ('2018-05-21','yyyy-mm-dd'),'HP');
-select  *  from Users;
+select2  *  from Users;
 
 
 
@@ -1090,9 +1090,9 @@ insert into Orders values ( 6,to_date('2019-08-05','yyyy-mm-dd') ,2,2,4);
 commit ;
 
 drop table Orders;
-select *  from Users;
-select  *  from Orders;
-select    buyer_id,     to_char(join_date,'yyyy-mm-dd')  join_date,   sum(decode( to_char(ORDER_DATE,'yyyy') ,'2019',1,0) )  orders_in_2019   from Orders  t ,Users t2  where t2.user_id = t.buyer_id (+) 
+select2 *  from Users;
+select2  *  from Orders;
+select2    buyer_id,     to_char(join_date,'yyyy-mm-dd')  join_date,   sum(decode( to_char(ORDER_DATE,'yyyy') ,'2019',1,0) )  orders_in_2019   from Orders  t ,Users t2  where t2.user_id = t.buyer_id (+) 
 group by buyer_id,   to_char(join_date,'yyyy-mm-dd') order by 1;
 
 create table test1(  a date ,price int );
@@ -1101,10 +1101,10 @@ insert into test1 values ( to_date('2023-01-05','yyyy-mm-dd'),100);
 insert into test1 values ( to_date('2023-01-10','yyyy-mm-dd'),200);
 insert into test1 values ( to_date('2023-01-15','yyyy-mm-dd'),300);
 commit ;
-select  *  from test1  order by 1
-with d  as  ( select max( a) - min(a)  days   ,min(a)  min1 from test1),
-d1   as  (select   min1+ level  -1    days2 from dual  ,d connect by level <= ( select   days +1   from d )) 
-select  days2 ,nvl ( price,(select max(price)   from test1   where a < days2)  )     from d1 ,test1  where days2 = a(+)  order by  1 ;
+select2  *  from test1  order by 1
+with d  as  ( select2 max( a) - min(a)  days   ,min(a)  min1 from test1),
+d1   as  (select2   min1+ level  -1    days2 from dual  ,d connect by level <= ( select2   days +1   from d )) 
+select2  days2 ,nvl ( price,(select2 max(price)   from test1   where a < days2)  )     from d1 ,test1  where days2 = a(+)  order by  1 ;
 
 create table  test2( id int ,dt date ,val int );
 
@@ -1114,8 +1114,8 @@ insert into test2 values ( 1,to_date('2023-01','yyyy-mm'),40);
 insert into test2 values ( 2,to_date('2023-02','yyyy-mm'),30);
 insert into test2 values ( 2,to_date('2023-02','yyyy-mm'),20);
 commit ;
-with d  as  (select  *  from test2  order by 1 ,val  desc  ) 
-select  a.* ,round(avg  (val) over ( partition by  id  order by val   desc  ) ,2)   from d a ;
+with d  as  (select2  *  from test2  order by 1 ,val  desc  ) 
+select2  a.* ,round(avg  (val) over ( partition by  id  order by val   desc  ) ,2)   from d a ;
 
 
 create table Match1 ( match_no int ,teama varchar2(20), teamb varchar2(20));
@@ -1135,20 +1135,20 @@ insert into Match1 values ( 'NZ','IND','IND');
 commit ;
 
 
-with d  as  (select  a.* ,case  when  teamb = win  then teama else teamb end  lost1 from match1 a) ,
-d1  as   (select  win,count(*) win_no   from d  group by win ) ,
-d2   as   (select  lost1,count(*)  lost_no from d  group by lost1) 
-select  win team,win_no ,lost_no ,win_no + lost_no total_games_played    from d1,d2  where win = lost1 ;
+with d  as  (select2  a.* ,case  when  teamb = win  then teama else teamb end  lost1 from match1 a) ,
+d1  as   (select2  win,count(*) win_no   from d  group by win ) ,
+d2   as   (select2  lost1,count(*)  lost_no from d  group by lost1) 
+select2  win team,win_no ,lost_no ,win_no + lost_no total_games_played    from d1,d2  where win = lost1 ;
 
 
-with d  as   (select  a.name  city1 ,b.name city2    from city a   ,city  b 
+with d  as   (select2  a.name  city1 ,b.name city2    from city a   ,city  b 
 where a.name !=  b.name ) ,
-d1  as  (select  d.* , dense_rank()  over ( partition by city1  order by city2  )  rk1 ,
+d1  as  (select2  d.* , dense_rank()  over ( partition by city1  order by city2  )  rk1 ,
 dense_rank()  over ( partition by city2  order by city1  )  rk2
   from d  ),
-  d2   as   ( select d1.* ,dense_rank () over  ( partition by     rk1 ,rk2  order by rownum  )   rk3   from d1   where rk1 = rk2 ) 
-  select  city1 ,city2   from d1  where rk1  != rk2  union all 
-  select  city1 ,city2   from d2   where rk3 = 1 
+  d2   as   ( select2 d1.* ,dense_rank () over  ( partition by     rk1 ,rk2  order by rownum  )   rk3   from d1   where rk1 = rk2 ) 
+  select2  city1 ,city2   from d1  where rk1  != rk2  union all 
+  select2  city1 ,city2   from d2   where rk3 = 1 
 
 
 +-----------+-----------+------------+--------------+
@@ -1325,10 +1325,10 @@ insert into Accounts  values ( 7,'Jonathan');
 commit ;
 
 
-with d  as   (select   a.*  ,dense_rank() over ( partition by id order by   login_date) a1 from logins a ),d1 as  
-( select  a.id ,sum(decode(a.login_date-b.login_date ,1,1,0)) num    from d b  ,d a   where a.id = b.id  and 
+with d  as   (select2   a.*  ,dense_rank() over ( partition by id order by   login_date) a1 from logins a ),d1 as  
+( select2  a.id ,sum(decode(a.login_date-b.login_date ,1,1,0)) num    from d b  ,d a   where a.id = b.id  and 
 (a.a1-1) = b.a1    group by  a.id  ) 
-select  d1.id ,Accounts.name  from d1,accounts    where num != 0 
+select2  d1.id ,Accounts.name  from d1,accounts    where num != 0 
 and d1.id   = accounts.id 
 
 
@@ -1431,13 +1431,13 @@ insert into Calls  values ( 7,1,3);
 insert into Calls  values ( 9,7,1);
 insert into Calls  values ( 1,7,7);
 
-with d  as  (select  
+with d  as  (select2  
 substr(phone_number ,1,3) ph, 
 round(avg(duration)  over ( partition by substr(phone_number ,1,3)),2) lc ,
-avg(duration) over ()  gl from ( select  caller_id, duration  from  Calls   union all 
-select  callee_id , duration  from  Calls)
+avg(duration) over ()  gl from ( select2  caller_id, duration  from  Calls   union all 
+select2  callee_id , duration  from  Calls)
 ,Person   where caller_id  = id ) 
-select unique     name   country    from d ,Country   where lc > gl  and country_code  = ph;
+select2 unique     name   country    from d ,Country   where lc > gl  and country_code  = ph;
 
 
 Input: 
@@ -1748,11 +1748,11 @@ create table Removals   ( post_id int ,remove_date date );
 insert into Removals values ( 2,to_date('2019-07-20','yyyy-mm-dd'));
 insert into Removals values ( 3,to_date('2019-07-18','yyyy-mm-dd'));
 
-with d  as  ( select unique  *  from Actions) ,
- d1  as   ( select  avg( decode( remove_date ,null ,0 ,100) ) value  ,action_date   from d   a,removals b 
+with d  as  ( select2 unique  *  from Actions) ,
+ d1  as   ( select2  avg( decode( remove_date ,null ,0 ,100) ) value  ,action_date   from d   a,removals b 
 where  ( a.post_id = b.post_id (+)    )    and extra = 'spam'
 group by action_date ) 
-select  round(avg(value),2)    average_daily_percent  from d1
+select2  round(avg(value),2)    average_daily_percent  from d1
 
 
 
@@ -1795,9 +1795,9 @@ insert into Teams  values ( 40,'Chicago FC');
 insert into Teams  values ( 50,'Toronto FC');
 commit ;
 
-with d  as  (select   host_team ,guest_team ,host_goals ,guest_goals  from Matches union all
-select guest_team,host_team,guest_goals,host_goals  from Matches) 
-select    team_id ,team_name ,sum(case when  host_goals > guest_goals then 3 when  host_goals <  guest_goals      then 0 when  host_goals= guest_goals then    1  else 0 end ) num_points    from d ,Teams  where 
+with d  as  (select2   host_team ,guest_team ,host_goals ,guest_goals  from Matches union all
+select2 guest_team,host_team,guest_goals,host_goals  from Matches) 
+select2    team_id ,team_name ,sum(case when  host_goals > guest_goals then 3 when  host_goals <  guest_goals      then 0 when  host_goals= guest_goals then    1  else 0 end ) num_points    from d ,Teams  where 
 Teams.team_id = d.host_team(+) 
 group by team_id , team_name order by  3 desc,1   ;
 
@@ -1889,13 +1889,13 @@ insert into contacts  values ( 2'Meir');
 insert into contacts  values ( 6'Alice');
 commit ;
 
-with d  as  ( select   user_id ,count(*)   contacts_cnt   from contacts
+with d  as  ( select2   user_id ,count(*)   contacts_cnt   from contacts
 group by user_id) ,d1   as 
-( select   user_id ,count(*)   trusted_cnt from contacts  where contact_name  in ( select  customer_name   from customers) 
+( select2   user_id ,count(*)   trusted_cnt from contacts  where contact_name  in ( select2  customer_name   from customers) 
 group by user_id) ,d2  as 
-( select  d.user_id ,d.contacts_cnt ,d1.trusted_cnt  from d,d1 
+( select2  d.user_id ,d.contacts_cnt ,d1.trusted_cnt  from d,d1 
 where d.user_id = d1.user_id(+) ) 
-select  invoice_id ,customer_name , price , nvl(contacts_cnt,0)   contacts_cnt  , nvl(trusted_cnt,0) trusted_contacts_cnt 
+select2  invoice_id ,customer_name , price , nvl(contacts_cnt,0)   contacts_cnt  , nvl(trusted_cnt,0) trusted_contacts_cnt 
 from Customers  a ,invoices b ,d2 
 where a.CUSTOMER_ID = b.user_id(+)   and a.CUSTOMER_ID = d2.user_id(+)  order by 1 
 
@@ -1922,8 +1922,8 @@ insert into Friends  values ( 6,'Bob B.' ,'Horse Riding');
 commit ;
 
 
-with d  as  ( select  count(*) c ,activity   from Friends  group by activity  order by 1 ) 
-select  activity  from d   where   c not in ( select max(c)      from d) and c not in ( select min(c)  from d) ;
+with d  as  ( select2  count(*) c ,activity   from Friends  group by activity  order by 1 ) 
+select2  activity  from d   where   c not in ( select2 max(c)      from d) and c not in ( select2 min(c)  from d) ;
 
 
 +------------+-----------+-----------+------------+
@@ -1974,9 +1974,9 @@ insert into users values (1,to_date ('2021-09-09','yyyy-mm-dd'));
 
 commit ;
 
- with d  as   (  select   a.*  ,row_number()  over  ( partition by  user_id  order by  created_at ) rk1   from users a) 
- --select  *  from d 
- select  unique a.user_id   from  d  a,d b   where   a.rk1 = b.rk1-1  and a.user_id = b.user_id
+ with d  as   (  select2   a.*  ,row_number()  over  ( partition by  user_id  order by  created_at ) rk1   from users a) 
+ --select2  *  from d 
+ select2  unique a.user_id   from  d  a,d b   where   a.rk1 = b.rk1-1  and a.user_id = b.user_id
   and  b.created_at -  a.created_at  <=7;
   
   
@@ -2012,14 +2012,14 @@ insert into Passengers  values (13,6);
 insert into Passengers  values (14,7);
 commit ;
 
-with d  as   ( select  a.passenger_id,a.arrival_time psnger_a,b.bus_id ,
+with d  as   ( select2  a.passenger_id,a.arrival_time psnger_a,b.bus_id ,
 b.arrival_time bus1_a
    from passengers a  ,buses  b   where  b.arrival_time >= a.arrival_time ) ,d1 as 
-   --select  *  from d 
-(select  dense_rank() over  ( partition by  passenger_id  order by   psnger_a, bus1_a)  rnk1   ,d.* 
+   --select2  *  from d 
+(select2  dense_rank() over  ( partition by  passenger_id  order by   psnger_a, bus1_a)  rnk1   ,d.* 
 from d )  ,d2  as ( 
-select  passenger_id ,bus_id   from d1 where rnk1 =1) 
-select  d3.bus_id , count(d2.passenger_id )   passengers_cnt  from d2,buses  d3   where  d3.BUS_ID  = d2.bus_id (+)   
+select2  passenger_id ,bus_id   from d1 where rnk1 =1) 
+select2  d3.bus_id , count(d2.passenger_id )   passengers_cnt  from d2,buses  d3   where  d3.BUS_ID  = d2.bus_id (+)   
 group by d3.bus_id order by 1 ;
 
 Delivery table:
@@ -2082,16 +2082,16 @@ insert into Transactions  values (8,3,'Creditor',64900,to_date('2021-07-26','yyy
 insert into Transactions  values (7,3,'Creditor',90900,to_date('2021-06-14','yyyy-mm-dd'));
 commit ;
 
-with d  as  (select  to_char( day,'yyyy-mm')  mth,sum(amount) sum1 ,account_id
+with d  as  (select2  to_char( day,'yyyy-mm')  mth,sum(amount) sum1 ,account_id
 from Transactions   where type = 'Creditor' 
 group by to_char( day,'yyyy-mm'),account_id order by 3 ) ,
 d1  as 
-( select d.* ,dense_rank() over  (  partition by  account_id order by mth)  rnk1    from d ) ,d2  as 
-( select  a.account_id ,a.sum1  sump, b.sum1  sumn ,a.mth mtho,b.mth mthn  from d1 a ,d1 b  where  a.rnk1  = b.rnk1- 1 
+( select2 d.* ,dense_rank() over  (  partition by  account_id order by mth)  rnk1    from d ) ,d2  as 
+( select2  a.account_id ,a.sum1  sump, b.sum1  sumn ,a.mth mtho,b.mth mthn  from d1 a ,d1 b  where  a.rnk1  = b.rnk1- 1 
 and a.account_id = b.account_id ) 
---select  d2.*, to_date(mthn,'yyyy-mm') -to_date(mtho,'yyyy-mm')   from d2
+--select2  d2.*, to_date(mthn,'yyyy-mm') -to_date(mtho,'yyyy-mm')   from d2
 --where to_date(mthn,'yyyy-mm') -to_date(mtho,'yyyy-mm')   <= 31
-select  unique  account_id   from d2  where ( sump >= 21000   and sumn >= 21000 )   and 
+select2  unique  account_id   from d2  where ( sump >= 21000   and sumn >= 21000 )   and 
  to_date(mthn,'yyyy-mm') -to_date(mtho,'yyyy-mm')   <= 31 
 
 +----------+----------+
@@ -2177,11 +2177,11 @@ insert into Products  values ( 3,'screen');
 insert into Products  values ( 4,'hard disk');
 commit ;
 
-with d  as  (select  customer_id ,product_id ,count(*) c1 from Orders
+with d  as  (select2  customer_id ,product_id ,count(*) c1 from Orders
 group by customer_id,product_id order by 1 ),
 d1  as 
-( select  d.*  ,dense_rank()  over  ( partition by customer_id order by  c1 desc  ) rnk1   from d ) 
-select  d1.customer_id ,d1.product_id,d2.product_name from  d1,Products  d2     where rnk1  = 1     and  d1.product_id  = d2.product_id     order by 1 ,2 
+( select2  d.*  ,dense_rank()  over  ( partition by customer_id order by  c1 desc  ) rnk1   from d ) 
+select2  d1.customer_id ,d1.product_id,d2.product_name from  d1,Products  d2     where rnk1  = 1     and  d1.product_id  = d2.product_id     order by 1 ,2 
 
 
 
@@ -2220,11 +2220,11 @@ insert into Users  values ( 3,'Winston',10000);
 insert into Users  values ( 4,'Luis',800);
 commit ;
 
-with d  as   (select   paid_by user_id  ,-amount   amt  from Transactions  union all 
-select  paid_to ,amount  from Transactions union all 
-select      user_id ,credit   from users ) ,d1  as 
-( select  user_id ,sum(amt ) amt1    from d group by    user_id ) 
-select    d2.user_id ,d2.user_name ,d1.amt1 credit  ,case when amt1<0 then 'Yes'  else 'No'  end credit_limit_breached      
+with d  as   (select2   paid_by user_id  ,-amount   amt  from Transactions  union all 
+select2  paid_to ,amount  from Transactions union all 
+select2      user_id ,credit   from users ) ,d1  as 
+( select2  user_id ,sum(amt ) amt1    from d group by    user_id ) 
+select2    d2.user_id ,d2.user_name ,d1.amt1 credit  ,case when amt1<0 then 'Yes'  else 'No'  end credit_limit_breached      
    from d1,users  d2 where  d2.user_id= d1.user_id(+) 
 order by 1
 
@@ -2251,12 +2251,12 @@ insert into Experiments values ( 'Web','Reading');
 insert into Experiments values ( 'Web','Reading');
 insert into Experiments values ( 'Web','Programming');
 
- with d  as   ( select  platform ,experiment_name ,count(*)  ct1  from  Experiments
+ with d  as   ( select2  platform ,experiment_name ,count(*)  ct1  from  Experiments
 group by platform ,experiment_name)  ,d2  as 
-(select  unique  platform  ,d1.experiment_name  from  Experiments ,(  select  'Reading'  experiment_name from dual 
-union all  select  'Sports'  from dual  union all 
-select  'Programming'  from dual   )  d1  ) 
-select   d2.platform,d2.experiment_name,nvl(d.ct1,0)   num_experiments from d2  ,d  where  d2.platform = d.platform(+)   
+(select2  unique  platform  ,d1.experiment_name  from  Experiments ,(  select2  'Reading'  experiment_name from dual 
+union all  select2  'Sports'  from dual  union all 
+select2  'Programming'  from dual   )  d1  ) 
+select2   d2.platform,d2.experiment_name,nvl(d.ct1,0)   num_experiments from d2  ,d  where  d2.platform = d.platform(+)   
 and  d2.experiment_name = d.experiment_name(+)  order by 1,3 desc ,2 desc 
 
 
@@ -2287,9 +2287,9 @@ insert into Orders  values ( 32,4,1);
 commit ;
 
 
-with d  as  ( select  order_id,customer_id ,order_type ,dense_rank () over ( partition by  customer_id 
+with d  as  ( select2  order_id,customer_id ,order_type ,dense_rank () over ( partition by  customer_id 
 order by order_type)    rnk1  from Orders) 
-select order_id,customer_id ,order_type  from d  where rnk1 = 1 order by  2 desc ,1  ;
+select2 order_id,customer_id ,order_type  from d  where rnk1 = 1 order by  2 desc ,1  ;
 
 Genders table:
 +---------+--------+
@@ -2328,10 +2328,10 @@ commit ;
 9	female
 
 
-with d  as  (select     a.* ,dense_rank()  over  ( partition by gender  order by  user_id )  gd1,case when  gender = 'male' then 'C'  
+with d  as  (select2     a.* ,dense_rank()  over  ( partition by gender  order by  user_id )  gd1,case when  gender = 'male' then 'C'  
 when   gender = 'female'  then  'A' 
 when  gender = 'other' then   'B'    end gd2 from  Genders a)
-select  user_id,gender  from d order by  gd1 ,gd2
+select2  user_id,gender  from d order by  gd1 ,gd2
 ;
 
 
@@ -2405,18 +2405,18 @@ insert into Users  values ( 4,'her','Hercy');
 insert into Users  values ( 5,'qua','Quarz');
 commit ;
 
-with  d  as   ( select  contest_id ,gold_medal    from Contests  union all 
-select  contest_id ,silver_medal    from Contests union all 
-select  contest_id ,bronze_medal    from Contests) ,d1  as 
-(select  d.* ,dense_rank()  over  (  partition by  gold_medal      
+with  d  as   ( select2  contest_id ,gold_medal    from Contests  union all 
+select2  contest_id ,silver_medal    from Contests union all 
+select2  contest_id ,bronze_medal    from Contests) ,d1  as 
+(select2  d.* ,dense_rank()  over  (  partition by  gold_medal      
 order by contest_id )  rnk1   from  d) ,d2  as 
-(select  d1.* ,lead( contest_id ,1) over ( partition by  gold_medal  order by   rnk1)  d1   from d1  ) 
-select  *  from d2
+(select2  d1.* ,lead( contest_id ,1) over ( partition by  gold_medal  order by   rnk1)  d1   from d1  ) 
+select2  *  from d2
 ,d3  as (
-select  gold_medal   from d2    where d1 - contest_id = 1  group by gold_medal having count(*) >=2 
+select2  gold_medal   from d2    where d1 - contest_id = 1  group by gold_medal having count(*) >=2 
 union 
-select  gold_medal   from Contests   group by gold_medal  having count(*) >=3) 
-select  name,mail   from d3,users  where d3.gold_medal  = users.user_id ;
+select2  gold_medal   from Contests   group by gold_medal  having count(*) >=3) 
+select2  name,mail   from d3,users  where d3.gold_medal  = users.user_id ;
 
 Flights table:
 +-------------------+-----------------+---------------+
@@ -2485,20 +2485,20 @@ insert into Teams  values ( 6,'Arsenal');
 commit ;
 
 with d  as ( 
-select  home_team_id ,away_team_goals   from  Matches   union all 
-select  away_team_id ,home_team_goals  from   Matches), 
+select2  home_team_id ,away_team_goals   from  Matches   union all 
+select2  away_team_id ,home_team_goals  from   Matches), 
 d1  as (
-select   home_team_id ,sum( away_team_goals)  off_goals   from d 
+select2   home_team_id ,sum( away_team_goals)  off_goals   from d 
 group by home_team_id) ,d2  as (
-select  home_team_id,home_team_goals   from Matches  union all 
-select away_team_id,away_team_goals  from Matches) ,d4  as (
-select  home_team_id  ,sum( home_team_goals)  on_goals , count(*)  total_games_played  from  d2
+select2  home_team_id,home_team_goals   from Matches  union all 
+select2 away_team_id,away_team_goals  from Matches) ,d4  as (
+select2  home_team_id  ,sum( home_team_goals)  on_goals , count(*)  total_games_played  from  d2
 group by home_team_id) ,d5  as 
-(select  home_team_id,home_team_goals,away_team_goals  from matches   union all 
-select away_team_id,away_team_goals,home_team_goals   from matches) ,d6  as  (
-select home_team_id ,sum( case when   home_team_goals >   away_team_goals   then 3   when 
+(select2  home_team_id,home_team_goals,away_team_goals  from matches   union all 
+select2 away_team_id,away_team_goals,home_team_goals   from matches) ,d6  as  (
+select2 home_team_id ,sum( case when   home_team_goals >   away_team_goals   then 3   when 
 home_team_goals =    away_team_goals then 1 else 0 end )   points  from d5 group by home_team_id) 
-select  team_name ,total_games_played  matches_played,points , on_goals goal_for ,off_goals goal_against ,
+select2  team_name ,total_games_played  matches_played,points , on_goals goal_for ,off_goals goal_against ,
 on_goals-off_goals goal_diff     from  teams ,d1,d4,d6 
 where teams.team_id = d1.home_team_id  and 
 teams.team_id = d4.home_team_id  and 
@@ -2527,10 +2527,10 @@ insert into CoffeeShop  values ( 1,'Daiquiri');
 insert into CoffeeShop  values ( 2,null);
 commit ;
 
-with d  as  ( select  a.* ,rownum rn   from CoffeeShop a ) ,d1  as 
-( select  drink ,rn ,( select  max( rn )  from d    where  drink is not null   and 
+with d  as  ( select2  a.* ,rownum rn   from CoffeeShop a ) ,d1  as 
+( select2  drink ,rn ,( select2  max( rn )  from d    where  drink is not null   and 
 d.rn < d1.rn )   rn2  from d d1 ) 
-select  nvl(drink ,(select  drink  from d  where rn = rn2) ) drink   from d1
+select2  nvl(drink ,(select2  drink  from d  where rn = rn2) ) drink   from d1
 
 
 Boxes table:
@@ -2578,7 +2578,7 @@ insert into chests  values ( 16,19,19);
 commit ;
 
 
-select  sum( nvl(a.apple_count,0)+ nvl(b.APPLE_COUNT,0) )  apple_count,
+select2  sum( nvl(a.apple_count,0)+ nvl(b.APPLE_COUNT,0) )  apple_count,
 sum( nvl(a.orange_count,0)  + nvl(b.orange_count,0))   orange_count 
 from boxes a  ,chests  b 
 where   a.chest_id = b.chest_id (+)
@@ -2599,11 +2599,11 @@ insert into Data values ( 3,1);
 insert into Data values ( 1,4);
 commit ;
 
-with d  as  (  select  first_col    from data  order by  1 )  , d1  as 
-( select  first_col,rownum rn     from  d) ,d3  
-as (  select  second_col    from data  order by  1  desc ) ,d4  as 
-( select  second_col,rownum rn     from  d3) 
-select  d1.first_col ,d4.second_col second_col  from d1,d4 where  d1.rn = d4 .rn(+) ;
+with d  as  (  select2  first_col    from data  order by  1 )  , d1  as 
+( select2  first_col,rownum rn     from  d) ,d3  
+as (  select2  second_col    from data  order by  1  desc ) ,d4  as 
+( select2  second_col,rownum rn     from  d3) 
+select2  d1.first_col ,d4.second_col second_col  from d1,d4 where  d1.rn = d4 .rn(+) ;
 
 
 Transactions table:
@@ -2662,13 +2662,13 @@ insert into Events values ( 1,'page views',3);
 insert into Events values ( 2,'page views',12);
 commit ;
 
-select  *  from events ;
+select2  *  from events ;
 
-with d  as   ( select   a.* ,avg( occurences)  over ( partition by  event_type )  arvgt,
+with d  as   ( select2   a.* ,avg( occurences)  over ( partition by  event_type )  arvgt,
 avg( occurences)  over ( partition by  business_id,event_type ) avgi
 --count( unique event_type) over ( partition by business_id)  cnt 
 from events a order by 1 ) 
-select     business_id  from d   where      avgi > arvgt 
+select2     business_id  from d   where      avgi > arvgt 
 group by business_id
  having count(*) > 1
 
@@ -2706,9 +2706,9 @@ insert into customers  values ( 4,'Bob');
 insert into customers  values ( 5,'Charlie');
 commit ;
 
-with d as  (select  level   "ids" from dual connect  by level <= ( select max( customer_id )     from customers)  minus
-select customer_id  from customers order by 1) 
-select   *  from d  where  "ids" >  ( select min(customer_id)   from customers) ;
+with d as  (select2  level   "ids" from dual connect  by level <= ( select2 max( customer_id )     from customers)  minus
+select2 customer_id  from customers order by 1) 
+select2   *  from d  where  "ids" >  ( select2 min(customer_id)   from customers) ;
 
 Books table:
 +---------+--------------------+----------------+
@@ -2766,10 +2766,10 @@ insert into Orders  values ( 5,9,to_date('2009-02-02','yyyy-mm-dd'));
 insert into Orders  values ( 5,8,to_date('2010-04-13','yyyy-mm-dd'));
 commit ;
 
-with d  as  ( select  book_id ,sum( quantity)  sum1  from orders 
+with d  as  ( select2  book_id ,sum( quantity)  sum1  from orders 
 where dispatch_date <=to_date('2019-06-23','yyyy-mm-dd') -365
 group by book_id) 
-select  books.book_id ,books.name   from  books ,d   where    BOOKS.BOOK_ID = d.BOOK_ID(+) 
+select2  books.book_id ,books.name   from  books ,d   where    BOOKS.BOOK_ID = d.BOOK_ID(+) 
 and available_from <= to_date('2019-06-23','yyyy-mm-dd') -30  and  nvl(sum1,0) <= 10
 order by  book_id 
 
@@ -2807,12 +2807,12 @@ insert into PointsChange values ( 4,13);
 insert into PointsChange values ( 1,-22);
 commit ;
 
-with d  as   ( select     a.* ,dense_rank()   over (order by   points desc )   d1  from    TeamPoints  a ) 
-,d1   as   (    select  sum(points)  points , team_id  from   ( select  team_id ,points   from TeamPoints  union all 
-select  *  from PointsChange ) group by  team_id  ) ,d2   as 
-( select    dense_rank () over  ( order by   d1.points desc ,anme ) d2  ,d.d1,anme ,d.team_id   from d1 ,d  
+with d  as   ( select2     a.* ,dense_rank()   over (order by   points desc )   d1  from    TeamPoints  a ) 
+,d1   as   (    select2  sum(points)  points , team_id  from   ( select2  team_id ,points   from TeamPoints  union all 
+select2  *  from PointsChange ) group by  team_id  ) ,d2   as 
+( select2    dense_rank () over  ( order by   d1.points desc ,anme ) d2  ,d.d1,anme ,d.team_id   from d1 ,d  
 where  d.team_id = d1.team_id  ) 
-select  team_id ,anme ,d1-d2 rank_diff  from d2 order by 1 ;
+select2  team_id ,anme ,d1-d2 rank_diff  from d2 order by 1 ;
 
 Tasks table:
 +---------+-------------+-------------+
@@ -2868,11 +2868,11 @@ insert into Players  values ( 3,'Novak');
 commit ;
 
 
-with d  as  ( select  wimbledon player  from Championships union all 
-select    fr_open  from Championships  union all 
-select  us_open  from Championships  union all 
-select  au_open  from Championships) 
-select   a.player  player_id   ,player_name ,count(*)  grand_slams_count 
+with d  as  ( select2  wimbledon player  from Championships union all 
+select2    fr_open  from Championships  union all 
+select2  us_open  from Championships  union all 
+select2  au_open  from Championships) 
+select2   a.player  player_id   ,player_name ,count(*)  grand_slams_count 
 from d a ,players b 
 where a.player  = b.player_id 
 group by a.player,player_name
@@ -2931,8 +2931,8 @@ insert into Rides values ( 4,11,7);
 insert into Rides  values ( 5,11,7);
 insert into Rides  values ( 6,11,3);
 commit ;
-with d  as (select  passenger_id ,count(*)   c1  from Rides group by passenger_id) 
-select   driver_id ,nvl(c1,0) cnt   from d ,( select unique driver_id   from Rides) d1
+with d  as (select2  passenger_id ,count(*)   c1  from Rides group by passenger_id) 
+select2   driver_id ,nvl(c1,0) cnt   from d ,( select2 unique driver_id   from Rides) d1
 where d1.driver_id  = d.passenger_id(+)  order by 1 ;
 
 
@@ -2966,25 +2966,25 @@ insert into Loginfo values (14,1,to_date('2021-2-26 02:58:06','yyyy-mm-dd hh24:m
 commit ;
 
 
-with d  as  ( select  a.*  ,lag ( login ,1) over  (   partition by     account_id  order by login desc   )  scnd  ,
+with d  as  ( select2  a.*  ,lag ( login ,1) over  (   partition by     account_id  order by login desc   )  scnd  ,
 lag ( ip_address ,1) over  (   partition by     account_id  order by login desc   )  ip_add2  ,2*ip_address    ip_add3
  from loginfo a  ) ,d1   as (
-select  d.account_id,case when   sum( ip_address+ ip_add2 )  != ip_add3   then 'A'  else 'B'  end  testc
+select2  d.account_id,case when   sum( ip_address+ ip_add2 )  != ip_add3   then 'A'  else 'B'  end  testc
  from d   where     login  <= scnd  and  logout >= scnd   
 group by d.account_id ,ip_add3) 
-select  unique  account_id   from d1 where   testc = 'A' order by 1 
+select2  unique  account_id   from d1 where   testc = 'A' order by 1 
 
 
  14         | 1          | 2021-2-26 00:43:51 | 2021-2-26 10:29:58 |
 	Line 13: | 14         | 1          | 2021-2-26 02:58:06 | 2021-2-26 03:16:10 |
 	
-	with d  as  ( select  d.*  ,lead ( login_date ,1) over ( partition by   id order by login_date  ) login2   from Logins d ) ,
-d1  as  ( select  d.*,  case   when  login2 - login_date = 0     then  1 
+	with d  as  ( select2  d.*  ,lead ( login_date ,1) over ( partition by   id order by login_date  ) login2   from Logins d ) ,
+d1  as  ( select2  d.*,  case   when  login2 - login_date = 0     then  1 
 else  1 end testc,
 dense_rank () over (  partition by id   order by case   when  login2 - login_date = 0     then  1 
 else  1 end)  tect2
   from d   where  ( login2 - login_date = 1  or login2 - login_date =  0) ) 
-  select  d1.id ,name  from d1,Accounts  d2   where testc  = tect2  and d2.id = d1.id 
+  select2  d1.id ,name  from d1,Accounts  d2   where testc  = tect2  and d2.id = d1.id 
   group by testc,tect2  ,d1.id,name having count(*) >= 5;
   
   Relations table:
@@ -3107,9 +3107,9 @@ insert into employees  values (2,12);
 insert into employees  values (3,2);
 commit ;
 
-with d  as  ( select   employee_id ,sum((out_time - in_time)*24)  hrs  from logs
+with d  as  ( select2   employee_id ,sum((out_time - in_time)*24)  hrs  from logs
 group by employee_id )
-select  d1.employee_id   from d ,employees d1  where  d1.employee_id = d.employee_id(+)  and 
+select2  d1.employee_id   from d ,employees d1  where  d1.employee_id = d.employee_id(+)  and 
 d1.needed_hours  > nvl(d.hrs,0)  order by 1 
 ;
 
@@ -3131,9 +3131,9 @@ Salaries table:
 
 
 create table Salaries( company_id int ,employee_id int ,employee_name varchar2(100),salary int );
-with d  as ( select  a.* ,max(salary ) over ( partition by  company_id )  maxs
+with d  as ( select2  a.* ,max(salary ) over ( partition by  company_id )  maxs
 from Salaries a)
-select company_id ,employee_id ,employee_name ,case when  maxs > 10000
+select2 company_id ,employee_id ,employee_name ,case when  maxs > 10000
 then   round(( salary   -  49 *salary/100) )    
 when   maxs >= 1000  and maxs <=10000  then 
 round(( salary   -  24 *salary/100) )     
@@ -3174,8 +3174,8 @@ insert into employees values ( 7,'Addilyn',7400);
 insert into employees values ( 8,'Juan',6100);
 insert into employees values ( 9,'Kannon',7400);
 
-with d  as  (  select d.*  ,count(salary) over  (partition by salary )   c1 from employees d) 
-select  employee_id ,name,salary  ,  dense_rank() 
+with d  as  (  select2 d.*  ,count(salary) over  (partition by salary )   c1 from employees d) 
+select2  employee_id ,name,salary  ,  dense_rank() 
 over  (  order by salary )  team_id
 from d  where  c1>=2  order by 4,1;
 
@@ -3201,8 +3201,8 @@ insert into Purchases values ( 5,7, to_date('2022-06-19','yyyy-mm-dd'));
 insert into Purchases values ( 2,2, to_date('2022-06-08','yyyy-mm-dd'));
 commit ;
 
-with d  as  ( select a.*  ,lead( purchase_date,1) over ( partition by user_id  order by purchase_date )   ld  from purchases    a) 
-select  unique user_id   from d where ld is not null  and  ld-purchase_date <= 7
+with d  as  ( select2 a.*  ,lead( purchase_date,1) over ( partition by user_id  order by purchase_date )   ld  from purchases    a) 
+select2  unique user_id   from d where ld is not null  and  ld-purchase_date <= 7
 order by 1 
 
 ---------------------
@@ -3232,11 +3232,11 @@ insert into orders values ( 7,2,6,to_date('2022-10-11','yyyy-mm-dd'));
 commit ;
 
 with d as ( 
-select   product_id ,count(product_id)  c1 ,to_char( purchase_date ,'yyyy') year1
+select2   product_id ,count(product_id)  c1 ,to_char( purchase_date ,'yyyy') year1
 from orders group by  product_id ,to_char( purchase_date ,'yyyy') )  ,d1  as (
-select a.*  ,lead( year1,1) over ( partition by  product_id  order by year1 )    year2 from d a
+select2 a.*  ,lead( year1,1) over ( partition by  product_id  order by year1 )    year2 from d a
 where c1>= 3 ) 
-select    unique  product_id   from d1
+select2    unique  product_id   from d1
  where 
  year2 is not null and  year2 -  year1  =1   order by 1 ;
  -----------
@@ -3335,18 +3335,18 @@ insert into Purchases values (17,7000);
 commit ;
 
 
-with d  as   ( select      count(*) c1  ,member_id   from visits 
+with d  as   ( select2      count(*) c1  ,member_id   from visits 
 group by member_id   ),
 d1 as( 
-select  b.member_id ,count(b.member_id) p1 from visits  b  ,Purchases a
+select2  b.member_id ,count(b.member_id) p1 from visits  b  ,Purchases a
 where a.visit_id  = b.visit_id   group by b.member_id ) ,
 d2 as (
-select   members.member_id ,name ,
+select2   members.member_id ,name ,
 case  when nvl(c1,0) = 0  then 0 
 else   round((100 * nvl(p1,0))  / c1 )     end  category ,c1
   from  Members ,d ,d1 
 where members.member_id = d.member_id(+)  and  members.member_id = d1.member_id(+)) 
-select  member_id ,name ,case when category >= 80 then 'Diamond' 
+select2  member_id ,name ,case when category >= 80 then 'Diamond' 
 when category >= 50  and category <80   then 'Gold' 
 when  category < 50       and    nvl(c1,0) !=  0     then  'Silver'   else 
 'Bronze'      end category
@@ -3390,12 +3390,12 @@ insert into Product values ( 2,25);
 insert into Product values ( 3,15);
 commit ;
 
-with d  as  (  select   sales.user_id , sales.product_id , sum( quantity*price)  ms  from Sales, Product
+with d  as  (  select2   sales.user_id , sales.product_id , sum( quantity*price)  ms  from Sales, Product
 where Sales.PRODUCT_ID = Product.PRODUCT_ID 
 group by sales.user_id , sales.product_id 
 order by 2 ,3 desc )  ,d1  as (
-select  d.*  ,dense_rank()  over ( partition by  user_id order by   ms desc  )  d1 from d ) 
-select user_id,product_id   from d1  where d1 = 1 order by 1 ,2;
+select2  d.*  ,dense_rank()  over ( partition by  user_id order by   ms desc  )  d1 from d ) 
+select2 user_id,product_id   from d1  where d1 = 1 order by 1 ,2;
 
 Customer table:
 +-------------+--------------+--------------+-------------+
@@ -3440,9 +3440,9 @@ insert into customer values ( 1,to_date('2019-01-01','yyyy-mm-dd'),100);
 insert into customer values ( 1,to_date('2019-01-01','yyyy-mm-dd'),100);
 insert into customer values ( 1,to_date('2019-01-01','yyyy-mm-dd'),100);
 
-with d  as  ( select     a.*, a.visited_on -6    visit from customer a ) ,d1  as (
-select  unique  visited_on,visit   from d   where  visit in ( select  visited_on  from d))
-select  to_char(d1.visited_on,'yyyy-mm-dd') visited_on ,sum(  amount)   amount ,round(sum(  amount)/7 ,2) average_amount
+with d  as  ( select2     a.*, a.visited_on -6    visit from customer a ) ,d1  as (
+select2  unique  visited_on,visit   from d   where  visit in ( select2  visited_on  from d))
+select2  to_char(d1.visited_on,'yyyy-mm-dd') visited_on ,sum(  amount)   amount ,round(sum(  amount)/7 ,2) average_amount
  from d1 ,customer d2   where  d2.visited_on  <= d1.visited_on    and d2.visited_on >= d1.visit
 group by to_char(d1.visited_on,'yyyy-mm-dd'),d1.visit order by 1;
 
@@ -3492,13 +3492,13 @@ insert into Chargebacks values (101,to_date('2019-06-30 ','yyyy-mm-dd'));
 insert into Chargebacks values (105,to_date('2019-09-18','yyyy-mm-dd'));
 commit ;
 
-with d  as  ( select        to_char(trans_date,'yyyy-mm')  month ,country ,count( decode(state,'approved',1,null))  approved_count ,
+with d  as  ( select2        to_char(trans_date,'yyyy-mm')  month ,country ,count( decode(state,'approved',1,null))  approved_count ,
 sum(decode(state,'approved',amount,0)) approved_amount
  from Transactions a   group by     to_char(trans_date,'yyyy-mm')   ,country ) ,d1  as (
- select  count(*)   chargeback_count,sum( d.amount )  chargeback_amount  ,to_char(d12.trans_date,'yyyy-mm')  month,
+ select2  count(*)   chargeback_count,sum( d.amount )  chargeback_amount  ,to_char(d12.trans_date,'yyyy-mm')  month,
  d.country    from Chargebacks  d12  ,Transactions   d
  where  d12.trans_id = d.id   group by  to_char(d12.trans_date,'yyyy-mm') ,d.country)
- select      d1.month , d1.country ,nvl(approved_count,0)   approved_count  ,  nvl(approved_amount ,0) approved_amount,
+ select2      d1.month , d1.country ,nvl(approved_count,0)   approved_count  ,  nvl(approved_amount ,0) approved_amount,
  chargeback_count, chargeback_amount from d1 ,d  
  where d1.month = d.month(+) ;
  
@@ -3556,10 +3556,10 @@ insert into employee  values (3,'John',3);
 insert into employee  values (4,'Doe',2);
 commit ;
 
-with d  as   ( select  project_id,employee. employee_id  ,experience_years    
+with d  as   ( select2  project_id,employee. employee_id  ,experience_years    
  from   project, employee  where project.employee_id = employee.employee_id ) ,d1  as (
-select dense_rank() over ( partition by  project_id order by experience_years desc ) d1  ,d.*  from d ) 
-select project_id  ,employee_id from d1  where d1 = 1 order by 1 ,2 desc;
+select2 dense_rank() over ( partition by  project_id order by experience_years desc ) d1  ,d.*  from d ) 
+select2 project_id  ,employee_id from d1  where d1 = 1 order by 1 ,2 desc;
 
 Candidates table:
 +--------------+---------+--------------+--------------+
@@ -3619,9 +3619,9 @@ insert into Rounds  values ( 107,2,3);
 insert into Rounds  values ( 101,1,8);
 commit ;
 
-with d  as   ( select *  from candidates  where years_of_exp >=2 ) ,d1  as
-( select    sum(score)  score ,interview_id      from    Rounds group by interview_id) 
-select candidate_id   from d ,d1   where d.interview_id = d1.interview_id  and   score > 15;
+with d  as   ( select2 *  from candidates  where years_of_exp >=2 ) ,d1  as
+( select2    sum(score)  score ,interview_id      from    Rounds group by interview_id) 
+select2 candidate_id   from d ,d1   where d.interview_id = d1.interview_id  and   score > 15;
 
 Weather table:
 +---------+------------+--------+
@@ -3648,9 +3648,9 @@ insert into Weather  values ( 3,to_date('2022-02-07','yyyy-mm-dd',-7);
 insert into Weather  values ( 3,to_date('2022-12-07','yyyy-mm-dd',-6);
 commit ;
 
-with d  as   (  select *  from weather ),d1  as (
-select city_id,day  ,dense_rank () over  (  partition by  city_id order by degree desc,day )  d1,degree    from d )
-select  city_id, to_char(day,'yyyy-mm-dd') day   ,degree   from d1  where   d1 = 1;
+with d  as   (  select2 *  from weather ),d1  as (
+select2 city_id,day  ,dense_rank () over  (  partition by  city_id order by degree desc,day )  d1,degree    from d )
+select2  city_id, to_char(day,'yyyy-mm-dd') day   ,degree   from d1  where   d1 = 1;
 
 Orders table:
 +----------+------------+-------------+------------+
@@ -3685,8 +3685,8 @@ insert into orders  values (10,to_date('2020-07-15','yyyy-mm-dd'),1,2);
 commit ;
 
 
-with d  as  (  select  product_id ,dense_rank()  over (  partition by   product_id order by order_date  desc )    d2 , to_char(order_date,'yyyy-mm-dd')  order_date ,order_id  from orders   ) 
-select   product_name ,d3.product_id,order_id ,order_date   from d ,Products  d3  where d2 = 1
+with d  as  (  select2  product_id ,dense_rank()  over (  partition by   product_id order by order_date  desc )    d2 , to_char(order_date,'yyyy-mm-dd')  order_date ,order_id  from orders   ) 
+select2   product_name ,d3.product_id,order_id ,order_date   from d ,Products  d3  where d2 = 1
 and d.product_id = d3.product_id order by 1,3;
 
 Calls table:
@@ -3715,9 +3715,9 @@ insert into  calls values (3,4,200);
 insert into  calls values (4,3,499);
 commit ;
 
-with d  as  ( select   from_id  person1,to_id   person2,duration    from calls  union all 
-select to_id,from_id,duration   from calls) 
-select person1,person2,count(*)  call_count ,sum(duration)  total_duration  from d  where person1< person2 
+with d  as  ( select2   from_id  person1,to_id   person2,duration    from calls  union all 
+select2 to_id,from_id,duration   from calls) 
+select2 person1,person2,count(*)  call_count ,sum(duration)  total_duration  from d  where person1< person2 
 group by person1,person2 order by 1 ;
 
 Transactions table:
@@ -3783,10 +3783,10 @@ insert into Friends values (8,3);
 insert into Friends values (3,9);
 commit ;
 
-with d  as  ( select  user1,user2 from Friends union all 
-select user2,user1   from Friends) 
-,d1  as  ( select  count(  unique user1 )  m from d )
-select   user1,round(count( unique user2) /m*100 ,2)  percentage_popularity  from  d,d1
+with d  as  ( select2  user1,user2 from Friends union all 
+select2 user2,user1   from Friends) 
+,d1  as  ( select2  count(  unique user1 )  m from d )
+select2   user1,round(count( unique user2) /m*100 ,2)  percentage_popularity  from  d,d1
 group by user1,m order by 1;
 
 
@@ -3822,115 +3822,115 @@ insert into Orders  values (,3,to_date('2018-11-07','yyyy-mm-dd'),900);
 
 commit ;
 
-with d as (  select   customer_id ,to_char(order_date,'yyyy')   month1 ,sum( price)  sump 
+with d as (  select2   customer_id ,to_char(order_date,'yyyy')   month1 ,sum( price)  sump 
 from    orders  group by to_char(order_date,'yyyy')  ,customer_id),d1  as ( 
-select     a.* ,lead(  sump,1)  over ( partition by customer_id order by month1 )  sump1 ,lead(  month1,1)  over ( partition by customer_id order by month1 )  mp1  from d   a) 
---select  *  from d1
+select2     a.* ,lead(  sump,1)  over ( partition by customer_id order by month1 )  sump1 ,lead(  month1,1)  over ( partition by customer_id order by month1 )  mp1  from d   a) 
+--select2  *  from d1
 ,d2  as (
---select *  from d1
-select       sum( case when  sump1 >    sump  then 1 else 0 end )  c1 ,customer_id,count(*)  c2   from d1    where sump1 is not null   and mp1 - month1  =1 
+--select2 *  from d1
+select2       sum( case when  sump1 >    sump  then 1 else 0 end )  c1 ,customer_id,count(*)  c2   from d1    where sump1 is not null   and mp1 - month1  =1 
 group by customer_id) 
-select  customer_id  from d2   where  c1 = c2 
+select2  customer_id  from d2   where  c1 = c2 
 union all 
-select customer_id  from orders   group by customer_id having count(*) = 1;
+select2 customer_id  from orders   group by customer_id having count(*) = 1;
 
 
-with  d  as   ( select  transaction_date   - rownum t1 ,a.*   from   Transactions  a order by 3,4),d1  as ( 
-select   max(  transaction_date) over ( partition by  t1  ) mx1  ,min( transaction_date)  over ( partition by t1 )  mn1 ,  count( t1 ) over  ( partition by   t1)  c1,d.*          from  d ) 
-select  unique   mn1,mx1 ,customer_id ,c1  from d1 where c1 >=3 ;
+with  d  as   ( select2  transaction_date   - rownum t1 ,a.*   from   Transactions  a order by 3,4),d1  as ( 
+select2   max(  transaction_date) over ( partition by  t1  ) mx1  ,min( transaction_date)  over ( partition by t1 )  mn1 ,  count( t1 ) over  ( partition by   t1)  c1,d.*          from  d ) 
+select2  unique   mn1,mx1 ,customer_id ,c1  from d1 where c1 >=3 ;
 
-with  d  as   ( select  transaction_date   - rownum t1 ,a.*   from   Transactions  a order by 3,4),d1  as ( 
-select   max(  transaction_date) over ( partition by  t1  ) mx1  ,min( transaction_date)  over ( partition by t1 )  mn1 ,
+with  d  as   ( select2  transaction_date   - rownum t1 ,a.*   from   Transactions  a order by 3,4),d1  as ( 
+select2   max(  transaction_date) over ( partition by  t1  ) mx1  ,min( transaction_date)  over ( partition by t1 )  mn1 ,
 d.*   ,lead( amount ,1) over ( partition by  customer_id ,t1 order by   transaction_date) l1       from  d ) 
 --,d2  as 
-select  *  from d1
-( select  unique   mn1,mx1 ,customer_id ,sum( case when  amount <l1  then  1 else   0  end ) over ( partition by  customer_id ,  t1 )   c1  from d1)
-select customer_id, to_char(mn1,'yyyy-mm-dd')  consecutive_start,to_char(mx1,'yyyy-mm-dd')  consecutive_end  from d2  where c1 >=2 order by 1 
+select2  *  from d1
+( select2  unique   mn1,mx1 ,customer_id ,sum( case when  amount <l1  then  1 else   0  end ) over ( partition by  customer_id ,  t1 )   c1  from d1)
+select2 customer_id, to_char(mn1,'yyyy-mm-dd')  consecutive_start,to_char(mx1,'yyyy-mm-dd')  consecutive_end  from d2  where c1 >=2 order by 1 
 
-select *  from  Transactions  order by  2,3
+select2 *  from  Transactions  order by  2,3
 
 
-with d  as  (select  orders.order_id ,orders.order_date ,orders.item_id ,orders.buyer_id ,orders.seller_id,users.favorite_brand   
+with d  as  (select2  orders.order_id ,orders.order_date ,orders.item_id ,orders.buyer_id ,orders.seller_id,users.favorite_brand   
 ,items.item_brand  from Orders ,Items  ,users 
 where users.user_id = Orders.seller_id and  Orders.item_id = items.item_id) ,d1  as  (
-select d.* ,dense_rank() over ( partition by seller_id  order by   order_date  )  d1  from d ) ,d2  as (
-select *  from d1   where d1= 2  and   d1.favorite_brand = d1.item_brand   )
-select  user_id ,decode(  seller_id ,null , 'no','yes')   "2nd_item_fav_brand"   from d2,users       where  users.user_id =   d2.seller_id(+) 
+select2 d.* ,dense_rank() over ( partition by seller_id  order by   order_date  )  d1  from d ) ,d2  as (
+select2 *  from d1   where d1= 2  and   d1.favorite_brand = d1.item_brand   )
+select2  user_id ,decode(  seller_id ,null , 'no','yes')   "2nd_item_fav_brand"   from d2,users       where  users.user_id =   d2.seller_id(+) 
 order by 1
 
-with d  as  (select   unique  b.department_id  ,substr(   pay_date,1,6)  pay_date,avg ( amount  )    over        (    partition by   substr(   pay_date,1,6))  avr_dep,
+with d  as  (select2   unique  b.department_id  ,substr(   pay_date,1,6)  pay_date,avg ( amount  )    over        (    partition by   substr(   pay_date,1,6))  avr_dep,
 avg ( amount  )    over        (    partition by   department_id,substr(   pay_date,1,6)) avg_com
  from  Salary   a,employee b 
 where  a.employee_id  = b.employee_id   order by 1 )
-select   to_char(pay_date,'yyyy-mm')  pay_date,department_id , case when  avr_dep < avg_com  then 'higher' 
+select2   to_char(pay_date,'yyyy-mm')  pay_date,department_id , case when  avr_dep < avg_com  then 'higher' 
 when  avr_dep > avg_com then 'lower'  else 'same'  end comparison  from d order by 2,1
 
-with  d  as   (select a.*  ,count(*)  over ( partition by   continent) ,rownum rn  from student a )
+with  d  as   (select2 a.*  ,count(*)  over ( partition by   continent) ,rownum rn  from student a )
 --,d1  as (
-select    america,asia,europe   from d 
+select2    america,asia,europe   from d 
 pivot ( max( name )  for continent  in ( 'America' as  America,'Asia'  as Asia ,'Europe'  as  Europe) )
 --)
-select  america,asia,europe   from d1 
+select2  america,asia,europe   from d1 
 
 
-with d  as   (select to_date(fail_date,'yyyymmdd')  success_date   ,'success'   comp   from succed   where  fail_date  like '2019%'  union all
-select to_date(fail_date,'yyyymmdd')  success_date   ,'failed'    from failed   where  fail_date  like '2019%' 
+with d  as   (select2 to_date(fail_date,'yyyymmdd')  success_date   ,'success'   comp   from succed   where  fail_date  like '2019%'  union all
+select2 to_date(fail_date,'yyyymmdd')  success_date   ,'failed'    from failed   where  fail_date  like '2019%' 
 ),d1  as (
-select  success_date -rownum+1 dummy_table,success_date ,comp   from  d  ) 
-select comp as  period_state  ,max(success_date),min(success_date)  from d1  
+select2  success_date -rownum+1 dummy_table,success_date ,comp   from  d  ) 
+select2 comp as  period_state  ,max(success_date),min(success_date)  from d1  
 group by  comp,dummy_table
 
 
-with d  as  ( select  b.visit_date ,a.TRANSACTION_DATE    from visits b ,TRANSACTIONS a where  
+with d  as  ( select2  b.visit_date ,a.TRANSACTION_DATE    from visits b ,TRANSACTIONS a where  
  ( b.user_id  = a.user_id (+)    and  b.visit_date = a.TRANSACTION_DATE(+))),d1 as (
-select  count(*) c ,nvl(TRANSACTION_DATE ,0)  TRANSACTION_DATE from  d group 
+select2  count(*) c ,nvl(TRANSACTION_DATE ,0)  TRANSACTION_DATE from  d group 
 by  nvl(TRANSACTION_DATE,0)) ,d2  as ( 
-select   c  transactions_count   , count(decode( TRANSACTION_DATE,0,null, c))  visits_count   
+select2   c  transactions_count   , count(decode( TRANSACTION_DATE,0,null, c))  visits_count   
   from d1 group by  c ) ,d3  as(
-  select   level l   from dual connect by level <= (select max(transactions_count)  from d2))
-  select   * from d2 union all
-  select   l,0 from  d3   where  l not in ( select transactions_count  from d2) order by  1 
+  select2   level l   from dual connect by level <= (select2 max(transactions_count)  from d2))
+  select2   * from d2 union all
+  select2   l,0 from  d3   where  l not in ( select2 transactions_count  from d2) order by  1 
 
-with d  as  (  select to_date(fail_date,'yyyymmdd') fail_date from failed  where fail_date  like  '2019%'),
-d1  as  (  select  to_date(fail_date,'yyyymmdd') succed_date    from succed  where fail_date  like  '2019%'),d2  as  ( 
-select   'failed' "period_state" ,fail_date,fail_date - rownum   b1   from d  union all 
-select 'succed' ,succed_date,succed_date - rownum  from d1) 
-select  "period_state" ,min( fail_date ), max(  fail_date)  from d2
+with d  as  (  select2 to_date(fail_date,'yyyymmdd') fail_date from failed  where fail_date  like  '2019%'),
+d1  as  (  select2  to_date(fail_date,'yyyymmdd') succed_date    from succed  where fail_date  like  '2019%'),d2  as  ( 
+select2   'failed' "period_state" ,fail_date,fail_date - rownum   b1   from d  union all 
+select2 'succed' ,succed_date,succed_date - rownum  from d1) 
+select2  "period_state" ,min( fail_date ), max(  fail_date)  from d2
 group by "period_state",b1  order by 2;
 
 
-with d  as  ( select  a.* ,dense_rank()  over  ( partition by  username order by startdate  desc ) d1  ,count(*)  
+with d  as  ( select2  a.* ,dense_rank()  over  ( partition by  username order by startdate  desc ) d1  ,count(*)  
 over  ( partition by  username) c1  from UserActivity a)
-select  username,activity ,to_char(startDate,'yyyy-mm-dd') startDate ,to_char(endDate ,'yyyy-mm-dd') endDate    
+select2  username,activity ,to_char(startDate,'yyyy-mm-dd') startDate ,to_char(endDate ,'yyyy-mm-dd') endDate    
   from  d   where ( d1 =  2   or  ( d1 = 1   and   c1  =1));
   
   
-  with d  as  ( select a.*,row_number() over  ( partition by continent  order by   name ) rn  from student a )
-select America, Asia ,Europe from d pivot ( max(name) for
+  with d  as  ( select2 a.*,row_number() over  ( partition by continent  order by   name ) rn  from student a )
+select2 America, Asia ,Europe from d pivot ( max(name) for
   continent  in ('America' as America ,'Asia' as Asia ,'Europe' as Europe)) order by 1,2,3;
   
   /* Write your PL/SQL query statement below */
-with d  as   ( select  unique  *  from spending ),d1  as  (
-select  d.* ,listagg(  platform,',') over ( partition by  user_id ,spend_date  ) la  from d ) ,d2 as (
-select user_id ,spend_date ,la platform ,sum(amount )  total_amount ,count( unique  user_id  ) 
+with d  as   ( select2  unique  *  from spending ),d1  as  (
+select2  d.* ,listagg(  platform,',') over ( partition by  user_id ,spend_date  ) la  from d ) ,d2 as (
+select2 user_id ,spend_date ,la platform ,sum(amount )  total_amount ,count( unique  user_id  ) 
 over ( partition by user_id ,spend_date,la ) 
 total_users   from   d1 
 group by spend_date ,la,user_id ) ,d3  as 
-( select  unique spend_date,t.platform   from d,(select unique platform  from d2)t )
-select   d3.spend_date spend_date ,decode( d3.platform,'desktop,mobile','both',d3.platform) platform ,
+( select2  unique spend_date,t.platform   from d,(select2 unique platform  from d2)t )
+select2   d3.spend_date spend_date ,decode( d3.platform,'desktop,mobile','both',d3.platform) platform ,
 nvl(d2.total_amount,0  )  total_amount,nvl( d2.total_users,0) total_users
 from d2,d3   where   ( d3.spend_date = d2.spend_date(+)  and   d3.platform   =  d2.platform (+)) order by 1 ,2 desc ;
 
 
-with d  as   ( select  unique  *  from Spending  ),d1  as ( 
-select user_id ,decode( count( unique  platform ) over  (  partition by  user_id,spend_date ),2,'both',platform )platform  ,spend_date,amount     from d ) ,d2  as (
-select    sum(amount)  total_amount,platform ,spend_date ,user_id   from d1 
+with d  as   ( select2  unique  *  from Spending  ),d1  as ( 
+select2 user_id ,decode( count( unique  platform ) over  (  partition by  user_id,spend_date ),2,'both',platform )platform  ,spend_date,amount     from d ) ,d2  as (
+select2    sum(amount)  total_amount,platform ,spend_date ,user_id   from d1 
 group by platform ,spend_date ,user_id  ) 
 ,d3 as (
-select  d2.* ,count( unique  user_id  ) over ( partition by user_id ,spend_date,platform )total_users  from d2)
+select2  d2.* ,count( unique  user_id  ) over ( partition by user_id ,spend_date,platform )total_users  from d2)
 ,d4  as 
-( select  unique spend_date,t.platform   from d,(select unique platform  from d2)t )
-select    d4.spend_date ,d4.platform ,
+( select2  unique spend_date,t.platform   from d,(select2 unique platform  from d2)t )
+select2    d4.spend_date ,d4.platform ,
 nvl(d3.total_amount,0  )  total_amount,nvl( d3.total_users,0) total_users
 from d4,d3   where   ( d4.spend_date = d3.spend_date(+)  and   d4.platform   =  d3.platform (+)) order by 1 ,2 desc ;
 
@@ -3938,64 +3938,64 @@ from d4,d3   where   ( d4.spend_date = d3.spend_date(+)  and   d4.platform   =  
 https://leetcode.com/problems/total-sales-amount-by-year/
 1384 : Total Sales amount by year 
 
-with d  as  ( select d.*,  ( substr( period_end,1,4) - substr( period_start,1,4)) + 1  l  from sales d),d1   as (
-select *  from d,lateral ( select level l1  from dual connect by  level <= l)),d2 as 
+with d  as  ( select2 d.*,  ( substr( period_end,1,4) - substr( period_start,1,4)) + 1  l  from sales d),d1   as (
+select2 *  from d,lateral ( select2 level l1  from dual connect by  level <= l)),d2 as 
  (
-select  product_id ,case when  l1 = 1  then  to_date(period_start,'yyyymmdd')  else   to_date(substr(period_start,1,4) +l1-1 || '0101'  ,'yyyymmdd')  end period_start ,
+select2  product_id ,case when  l1 = 1  then  to_date(period_start,'yyyymmdd')  else   to_date(substr(period_start,1,4) +l1-1 || '0101'  ,'yyyymmdd')  end period_start ,
 case when l= l1  then to_date(period_end,'yyyymmdd')  else  to_date(substr(period_start,1,4) + l1 || '0101','yyyymmdd') -1  end period_end,average_daily_sales    from  d1 ) 
-select  product.product_id , product_name , substr( to_char( period_start,'yyyymmdd') ,1,4)  report_year , ( period_end+1 - period_start) * average_daily_sales   total_amount 
+select2  product.product_id , product_name , substr( to_char( period_start,'yyyymmdd') ,1,4)  report_year , ( period_end+1 - period_start) * average_daily_sales   total_amount 
   from  d2,product  where d2.product_id  = product.product_id
   
 
 ----------
-with d  as   (select d.*,
+with d  as   (select2 d.*,
 min( score  )  over  ( partition by  exam_id ) min,
 max( score  )  over  ( partition by  exam_id ) max
 from exam d   ),d1  as (
-select student_id  from d   where  score = min   union all 
-select student_id  from d where score = max)
-select d.student_id,d2.student_name  from d,student d2  where   d.student_id = d2.student_id   minus 
-select d1.student_id,d2.student_name  from d1,student d2  where   d1.student_id = d2.student_id
+select2 student_id  from d   where  score = min   union all 
+select2 student_id  from d where score = max)
+select2 d.student_id,d2.student_name  from d,student d2  where   d.student_id = d2.student_id   minus 
+select2 d1.student_id,d2.student_name  from d1,student d2  where   d1.student_id = d2.student_id
 
 
 1635. Hopper Company Queries I
 
-select to_date(join_date,'yyyymmdd'),join_date  from drivers  where  join_date like '2020%';
+select2 to_date(join_date,'yyyymmdd'),join_date  from drivers  where  join_date like '2020%';
 
-with d  as  ( select '2020' ||   lpad(level,2,'0') mth  from dual connect by level <= 12 ),d1  as  (
-select to_date(mth,'yyyymm') first_day1 ,last_day( to_date(mth,'yyyymm')) last_day_mth,driver_id , to_date(join_date,'yyyymmdd') join_date   from d,drivers   
+with d  as  ( select2 '2020' ||   lpad(level,2,'0') mth  from dual connect by level <= 12 ),d1  as  (
+select2 to_date(mth,'yyyymm') first_day1 ,last_day( to_date(mth,'yyyymm')) last_day_mth,driver_id , to_date(join_date,'yyyymmdd') join_date   from d,drivers   
 where to_date(join_date,'yyyymmdd')   <= last_day( to_date(mth,'yyyymm')) ),d2  as (
-select    last_day_mth ,count(unique  driver_id ) a1   from d1
+select2    last_day_mth ,count(unique  driver_id ) a1   from d1
 group by last_day_mth) ,d3 as (
-select  count( unique driver_id) a2 , last_day(to_date(substr(requested_at,1,6),'yyyymm')) requested_at     from Rides d ,AcceptedRides  d1,d d3 
+select2  count( unique driver_id) a2 , last_day(to_date(substr(requested_at,1,6),'yyyymm')) requested_at     from Rides d ,AcceptedRides  d1,d d3 
 where d.ride_id  = d1.ride_id 
 and to_date(requested_at,'yyyymmdd')   <= last_day( to_date(mth,'yyyymm'))  group by  last_day(to_date(substr(requested_at,1,6),'yyyymm')) )
-select row_number()  over (order by last_day_mth)  month  ,nvl(a1,0) active_drivers 
+select2 row_number()  over (order by last_day_mth)  month  ,nvl(a1,0) active_drivers 
 ,nvl(a2,0)accepted_rides   from d2,d3  where   d2.last_day_mth = d3.requested_at(+) order by last_day_mth 
 
 ----------
 
-with d  as  ( select '2020' ||   lpad(level,2,'0') mth  from dual connect by level <= 12 ),d1  as  (
-select to_date(mth,'yyyymm') first_day1 ,last_day( to_date(mth,'yyyymm')) last_day_mth,driver_id ,  join_date   from d,drivers   
+with d  as  ( select2 '2020' ||   lpad(level,2,'0') mth  from dual connect by level <= 12 ),d1  as  (
+select2 to_date(mth,'yyyymm') first_day1 ,last_day( to_date(mth,'yyyymm')) last_day_mth,driver_id ,  join_date   from d,drivers   
 where join_date   <= last_day( to_date(mth,'yyyymm')) ),d2  as (
-select    last_day_mth ,count(unique  driver_id ) a1   from d1
+select2    last_day_mth ,count(unique  driver_id ) a1   from d1
 group by last_day_mth) ,d3 as (
-select  count( unique driver_id) a2 , last_day(to_date(substr(requested_at,1,6),'yyyymm')) requested_at     from Rides d ,AcceptedRides  d1,d d3 
+select2  count( unique driver_id) a2 , last_day(to_date(substr(requested_at,1,6),'yyyymm')) requested_at     from Rides d ,AcceptedRides  d1,d d3 
 where d.ride_id  = d1.ride_id 
 and to_date(requested_at,'yyyymmdd')   <= last_day( to_date(mth,'yyyymm'))  group by  last_day(to_date(substr(requested_at,1,6),'yyyymm')) )
-select row_number()  over (order by last_day_mth)  month  ,nvl(a1,0) active_drivers 
+select2 row_number()  over (order by last_day_mth)  month  ,nvl(a1,0) active_drivers 
 ,nvl(a2,0)accepted_rides   from d2,d3  where   d2.last_day_mth = d3.requested_at(+) order by last_day_mth 
 ;
 
-with d as  (select  level l   from dual   connect by  level  <= ( select max( subtasks_count)  from tasks)) 
-select  task_id ,l subtask_id   from  tasks  ,d    where    l <= subtasks_count minus 
-select task_id,subtask_id  from Executed order by 1,2;
+with d as  (select2  level l   from dual   connect by  level  <= ( select2 max( subtasks_count)  from tasks)) 
+select2  task_id ,l subtask_id   from  tasks  ,d    where    l <= subtasks_count minus 
+select2 task_id,subtask_id  from Executed order by 1,2;
 
 
 with  d1  as  (
-select  trim(to_char(order_date,'DAY')) DAY1 , item_category Category    ,QUANTITY from orders ,Items 
+select2  trim(to_char(order_date,'DAY')) DAY1 , item_category Category    ,QUANTITY from orders ,Items 
 where  Items.item_id = orders.item_id(+)     ) 
-select  Category,nvl(MONDAY,0) MONDAY,
+select2  Category,nvl(MONDAY,0) MONDAY,
 nvl(TUESDAY,0) TUESDAY,
 nvl(WEDNESDAY,0) WEDNESDAY,
 nvl(THURSDAY,0) THURSDAY,
@@ -4009,96 +4009,96 @@ pivot ( sum( quantity)  for DAY1  in ('MONDAY' as MONDAY,'TUESDAY' as TUESDAY ,'
 
 https://leetcode.com/problems/first-and-last-call-on-the-same-day/
 
-with d  as   (select count(caller_id) over  (partition by caller_id,to_char(call_time,'yyyymmdd') )  counts_caller_id  ,
+with d  as   (select2 count(caller_id) over  (partition by caller_id,to_char(call_time,'yyyymmdd') )  counts_caller_id  ,
 count(RECIPIENT_ID) over  (partition by RECIPIENT_ID,to_char(call_time,'yyyymmdd'))  counts_RECIPIENT_ID,
 CALLER_ID,RECIPIENT_ID,to_char(call_time,'yyyymmdd')  call_time
 from  calls order by  5)
-select  caller_id  from d  where counts_caller_id =1   and counts_RECIPIENT_ID =1  union 
+select2  caller_id  from d  where counts_caller_id =1   and counts_RECIPIENT_ID =1  union 
 RECIPIENT_ID  from d  where counts_caller_id =1   and counts_RECIPIENT_ID =1  ;
 
-with  s2 as ( select caller_id,recipient_id ,to_char(call_time,'yyyymmdd') call_time  from calls) 
-,d as   (select  greatest(caller_id,recipient_id) caller_id ,least( caller_id,recipient_id)recipient_id ,call_time  from s2),d1  as (
-select  count(*) c1 ,caller_id ,recipient_id,call_time  from d  group by caller_id ,recipient_id ,call_time ),d2  as (
-select  caller_id  from d1 where c1 =2  union 
-select recipient_id  from d1 where c1>=2 ) ,d3 as (
-select count( caller_id)  over  (partition by call_time,caller_id) c2 , count( recipient_id)  over  (partition by call_time,recipient_id) c3,caller_id,
+with  s2 as ( select2 caller_id,recipient_id ,to_char(call_time,'yyyymmdd') call_time  from calls) 
+,d as   (select2  greatest(caller_id,recipient_id) caller_id ,least( caller_id,recipient_id)recipient_id ,call_time  from s2),d1  as (
+select2  count(*) c1 ,caller_id ,recipient_id,call_time  from d  group by caller_id ,recipient_id ,call_time ),d2  as (
+select2  caller_id  from d1 where c1 =2  union 
+select2 recipient_id  from d1 where c1>=2 ) ,d3 as (
+select2 count( caller_id)  over  (partition by call_time,caller_id) c2 , count( recipient_id)  over  (partition by call_time,recipient_id) c3,caller_id,
 recipient_id,call_time 
 from d1 where c1 <=1 ) ,d4 as (
-select  caller_id   from d3   where c2 =1  and c3 = 1 union 
-select  recipient_id   from d3   where c2 =1  and c3 = 1)
-select caller_id  user_id  from d2 union 
-select *  from d4 order by 1
+select2  caller_id   from d3   where c2 =1  and c3 = 1 union 
+select2  recipient_id   from d3   where c2 =1  and c3 = 1)
+select2 caller_id  user_id  from d2 union 
+select2 *  from d4 order by 1
 ---------------
-with d  as   ( select  greatest(caller_id,recipient_id) caller_id ,least( caller_id,recipient_id) recipient_id
+with d  as   ( select2  greatest(caller_id,recipient_id) caller_id ,least( caller_id,recipient_id) recipient_id
 ,call_time  from calls   ) ,d1  as (
-select  count(*)  c1 , caller_id ,recipient_id, call_time from d
+select2  count(*)  c1 , caller_id ,recipient_id, call_time from d
 group by  caller_id ,recipient_id, call_time    ),d2  as (
-select  caller_id ,recipient_id, call_time, count(caller_id)  over ( partition by caller_id,call_time) c_caller,
+select2  caller_id ,recipient_id, call_time, count(caller_id)  over ( partition by caller_id,call_time) c_caller,
 count(recipient_id)  over ( partition by recipient_id,call_time) c_recipient
 from d1 where c1 =1  order by 4)
-select caller_id    from d2 where  c_caller =1 union 
-select recipient_id   from d2   where c_recipient =1  union 
-select  caller_id  from d1  where c1 =2  union 
-select recipient_id from d1  where c1 =2 
+select2 caller_id    from d2 where  c_caller =1 union 
+select2 recipient_id   from d2   where c_recipient =1  union 
+select2  caller_id  from d1  where c1 =2  union 
+select2 recipient_id from d1  where c1 =2 
 order by 1 
 
-with d as  ( select a.*    from candidates a order by 2,3),d1  as (
-select d.*  ,sum(salary)  over  (partition by experience 
+with d as  ( select2 a.*    from candidates a order by 2,3),d1  as (
+select2 d.*  ,sum(salary)  over  (partition by experience 
 order by  rownum  ) sn,70000 as budget from d),d2  as  (
-select d1.* ,count(*) over () accepted_candidates  ,(budget- max(sn)   over ())  left_budget 
+select2 d1.* ,count(*) over () accepted_candidates  ,(budget- max(sn)   over ())  left_budget 
 from d1 where experience = 'Senior'  and sn < budget
 ),d3 as (
-select d1.* ,count(*) over () accepted_candidates  ,(budget- max(sn)   over ())  left_budget 
-from d1 where experience != 'Senior'  and sn <= (select  decode((select count(*)  from d2)  ,0,70000,(select unique left_budget
+select2 d1.* ,count(*) over () accepted_candidates  ,(budget- max(sn)   over ())  left_budget 
+from d1 where experience != 'Senior'  and sn <= (select2  decode((select2 count(*)  from d2)  ,0,70000,(select2 unique left_budget
 from d2 ))  from dual)),d4 as (
-select  unique experience,accepted_candidates  from d2 union all 
-select  unique experience,accepted_candidates  from d3  union all
-select 'Junior',0   from dual union all
-select 'Senior',0  from dual ) 
-select experience,sum(accepted_candidates)  accepted_candidates from d4  
+select2  unique experience,accepted_candidates  from d2 union all 
+select2  unique experience,accepted_candidates  from d3  union all
+select2 'Junior',0   from dual union all
+select2 'Senior',0  from dual ) 
+select2 experience,sum(accepted_candidates)  accepted_candidates from d4  
 group by experience order by 1 desc 
 
 --------------
 
-with d as  ( select a.*    from candidates a order by 2,3),d1  as (
-select d.*  ,sum(salary)  over  (partition by experience 
+with d as  ( select2 a.*    from candidates a order by 2,3),d1  as (
+select2 d.*  ,sum(salary)  over  (partition by experience 
 order by  rownum  ) sn,70000 as budget from d),d2  as  (
-select d1.* ,count(*) over () accepted_candidates  ,(budget- max(sn)   over ())  left_budget 
+select2 d1.* ,count(*) over () accepted_candidates  ,(budget- max(sn)   over ())  left_budget 
 from d1 where experience = 'Senior'  and sn < budget
 ),d3 as (
-select d1.* ,count(*) over () accepted_candidates  ,(budget- max(sn)   over ())  left_budget 
-from d1 where experience != 'Senior'  and sn <= (select  decode((select count(*)  from d2)  ,0,70000,(select unique left_budget
+select2 d1.* ,count(*) over () accepted_candidates  ,(budget- max(sn)   over ())  left_budget 
+from d1 where experience != 'Senior'  and sn <= (select2  decode((select2 count(*)  from d2)  ,0,70000,(select2 unique left_budget
 from d2 ))  from dual))
-select employee_id  from d2 union 
-select employee_id  from d3 order by 1 
+select2 employee_id  from d2 union 
+select2 employee_id  from d3 order by 1 
 
 
-with d  as  (select instr(upper(content),upper(word) ) abc ,keywords.*,posts.*  from keywords ,posts  where instr(upper(content) || ' ' ,upper(word) || ' ' ) >= 1    ),d1 as (
-select  unique  post_id,topic_id   from d)
-select  post_id ,listagg(topic_id,',') within group (    order by topic_id)  topic       from d1  group by post_id  union all  
-select post_id,'Ambiguous!'  from posts  where post_id not in (select post_id  from d1)
+with d  as  (select2 instr(upper(content),upper(word) ) abc ,keywords.*,posts.*  from keywords ,posts  where instr(upper(content) || ' ' ,upper(word) || ' ' ) >= 1    ),d1 as (
+select2  unique  post_id,topic_id   from d)
+select2  post_id ,listagg(topic_id,',') within group (    order by topic_id)  topic       from d1  group by post_id  union all  
+select2 post_id,'Ambiguous!'  from posts  where post_id not in (select2 post_id  from d1)
 
-with d  as  (select INVOICE_ID, a.PRODUCT_ID, QUANTITY, PRICE  from purchases a,products a1
+with d  as  (select2 INVOICE_ID, a.PRODUCT_ID, QUANTITY, PRICE  from purchases a,products a1
 where a.product_id  = a1.product_id ),d1  as (
-select invoice_id ,sum( price*quantity )  sum1  from d
+select2 invoice_id ,sum( price*quantity )  sum1  from d
 group by invoice_id),d2 as (
-select d1.* ,dense_rank()  over  ( partition by  sum1 order by  sum1,invoice_id) rk1 ,max(sum1) over () m1  from d1)
-select d1.product_id,quantity ,price*quantity price from d2,purchases d1,products d3  where d2.sum1 = m1 and rk1 =1
+select2 d1.* ,dense_rank()  over  ( partition by  sum1 order by  sum1,invoice_id) rk1 ,max(sum1) over () m1  from d1)
+select2 d1.product_id,quantity ,price*quantity price from d2,purchases d1,products d3  where d2.sum1 = m1 and rk1 =1
 and  d2.invoice_id = d1.invoice_id and d3.product_id =d1.product_id
 
 /* Write your PL/SQL query statement below */
 with s1 as  
-(select  hall_id ,to_char(start_day,'yyyy-mm-dd') start_day  ,to_char(end_day,'yyyy-mm-dd') end_day  from hallevents ),
-d  as   (select a.*  ,lead( start_day,1) over ( partition by hall_id  order by start_day ) start_day1 from s1 a
+(select2  hall_id ,to_char(start_day,'yyyy-mm-dd') start_day  ,to_char(end_day,'yyyy-mm-dd') end_day  from hallevents ),
+d  as   (select2 a.*  ,lead( start_day,1) over ( partition by hall_id  order by start_day ) start_day1 from s1 a
 order by 1,2),d1 as (
-select hall_id,start_day,end_day   from d where end_day >= start_day1 union all
-select  hall_id,start_day,end_day   from s1  where (hall_id,start_day) in (select hall_id ,start_day1 
+select2 hall_id,start_day,end_day   from d where end_day >= start_day1 union all
+select2  hall_id,start_day,end_day   from s1  where (hall_id,start_day) in (select2 hall_id ,start_day1 
 from d  where end_day >= start_day1 )  ),d2 as (
-select d1.*,'A' INDI from d1 union all
-select d2.*,'B'  from s1 d2 where  
-(hall_id,start_day,end_day)  not in (select *  from d1))
---select *  from d2 order by 1 ,2
-select  hall_id ,min(start_day) start_day  ,max(end_day) end_day  from d2
+select2 d1.*,'A' INDI from d1 union all
+select2 d2.*,'B'  from s1 d2 where  
+(hall_id,start_day,end_day)  not in (select2 *  from d1))
+--select2 *  from d2 order by 1 ,2
+select2  hall_id ,min(start_day) start_day  ,max(end_day) end_day  from d2
 group by hall_id ,INDI order by 1 ,2
 
 
@@ -4123,31 +4123,31 @@ insert into hallevents values ( 1,to_date('2023-01-18','yyyy-mm-dd') ,to_date('2
 insert into hallevents values ( 2,to_date('2022-12-09','yyyy-mm-dd') ,to_date('2022-12-23','yyyy-mm-dd') );
 insert into hallevents values ( 2,to_date('2022-12-13','yyyy-mm-dd') ,to_date('2022-12-17','yyyy-mm-dd') );
 insert into hallevents values ( 3,to_date('2022-12-01','yyyy-mm-dd') ,to_date('2023-01-30','yyyy-mm-dd') );
-select *  from hallevents 
+select2 *  from hallevents 
 
-with d  as  (select a.* ,decode(result,'Win',0,1) ab from matches a),d1  as 
-(select d.* ,sum(ab) over  ( partition by  player_id order by match_day) ab1  from d
+with d  as  (select2 a.* ,decode(result,'Win',0,1) ab from matches a),d1  as 
+(select2 d.* ,sum(ab) over  ( partition by  player_id order by match_day) ab1  from d
 order by 1,2),d2 as (
-select player_id,count(*) longest_streak  from d1 where Result = 'Win'
+select2 player_id,count(*) longest_streak  from d1 where Result = 'Win'
 group by player_id,ab1),d4  as(
-select d2.* ,max( longest_streak)  over  (partition by  player_id) lng from d2 )
-select unique player_id, longest_streak from d4 where longest_streak = lng union all
-select  unique player_id ,0  from matches where player_id not in (select player_id  from d4)
+select2 d2.* ,max( longest_streak)  over  (partition by  player_id) lng from d2 )
+select2 unique player_id, longest_streak from d4 where longest_streak = lng union all
+select2  unique player_id ,0  from matches where player_id not in (select2 player_id  from d4)
 order by 1
 
 
-with d as  (select  a.* ,lead(start_day) over ( partition by hall_id order by start_day ) start_day1
+with d as  (select2  a.* ,lead(start_day) over ( partition by hall_id order by start_day ) start_day1
 from hallevents  a),d1  as (
-select hall_id,start_day,end_day ,start_day1  from d   where exists ( select *  from hallevents d1 where d.hall_id = d1.hall_id
+select2 hall_id,start_day,end_day ,start_day1  from d   where exists ( select2 *  from hallevents d1 where d.hall_id = d1.hall_id
 and  d.start_day1 <= d1.end_day    and   d.start_day  != d1.start_day ) )
 ,d2 as (
-select hallevents.*,'A' type   from hallevents where (hall_id,start_day)  in
-(select hall_id,start_day  from d1 union all
-select hall_id,start_day1  from d1) union all
-select hallevents.*,'B' type  from hallevents where (hall_id,start_day) not  in
-(select hall_id,start_day  from d1 union all
-select hall_id,start_day1  from d1) )
-select hall_id ,to_char(min(start_day),'yyyy-mm-dd')  start_day,to_char(max(end_day),'yyyy-mm-dd')  end_day from d2
+select2 hallevents.*,'A' type   from hallevents where (hall_id,start_day)  in
+(select2 hall_id,start_day  from d1 union all
+select2 hall_id,start_day1  from d1) union all
+select2 hallevents.*,'B' type  from hallevents where (hall_id,start_day) not  in
+(select2 hall_id,start_day  from d1 union all
+select2 hall_id,start_day1  from d1) )
+select2 hall_id ,to_char(min(start_day),'yyyy-mm-dd')  start_day,to_char(max(end_day),'yyyy-mm-dd')  end_day from d2
 group by hall_id ,type  order by 1,2 ;
 truncate table hallevents
 describe hallevents
@@ -4163,26 +4163,26 @@ insert into hallevents values (3 ,to_date('2022-12-10','yyyy-mm-dd'),to_date('20
 insert into hallevents values (3 ,to_date('2022-12-04','yyyy-mm-dd'),to_date('2022-12-09','yyyy-mm-dd'));
 
 
-with d  as  (select a.* ,month- 3 ref  from employee  a order by 1,2),d1  as (
-select d.id,d.month,sum(employee.salary) Salary   from d,employee   where d.id = employee.id  and   employee.month > ref   and employee.month <= d.month
+with d  as  (select2 a.* ,month- 3 ref  from employee  a order by 1,2),d1  as (
+select2 d.id,d.month,sum(employee.salary) Salary   from d,employee   where d.id = employee.id  and   employee.month > ref   and employee.month <= d.month
 group by d.id,d.month
 order by 1,2 desc ),d2 as (
-select d1.* ,max(month)  over  ( partition by  id ) m1  from d1)
-select id,month,salary  from d2 where month != m1 order by 1,2  desc
+select2 d1.* ,max(month)  over  ( partition by  id ) m1  from d1)
+select2 id,month,salary  from d2 where month != m1 order by 1,2  desc
 
 
 
-with d  as  (select a.customer_id  from Transactions a,Transactions b 
+with d  as  (select2 a.customer_id  from Transactions a,Transactions b 
 where a.customer_id = b.customer_id  and ( a.transaction_date - b.transaction_date = 1 )  or (a.transaction_date = b.transaction_date)  ),d1  as (
-select customer_id,count(*) c1  from d
+select2 customer_id,count(*) c1  from d
 group by 
 customer_id)
-select *  from d
-select customer_id  from d1  where  c1 in (select max(c1)  from d1)
+select2 *  from d
+select2 customer_id  from d1  where  c1 in (select2 max(c1)  from d1)
 order by 1 
 
 truncate table Transactions
-select   customer_id   from Transactions  order by 1
+select2   customer_id   from Transactions  order by 1
 drop table TRANSCATIONS
 drop  table  Transactions
 create table Transactions( transaction_id int , customer_id int , transaction_date varchar2(10), amount int );
@@ -4190,97 +4190,97 @@ create table Transactions( transaction_id int , customer_id int , transaction_da
 --------------
 
  with   d1  as  (
-  select d.* ,dense_rank()  over ( partition by  player_id order by event_date )  d2, lead(event_date,1) 
+  select2 d.* ,dense_rank()  over ( partition by  player_id order by event_date )  d2, lead(event_date,1) 
   over  (partition by  player_id  order by event_date ) ld1   from activity d order by 3,1),install_counts as (
-  select event_date ,count(*) installs   from d1 where d2 = 1 group by event_date),rentention_time as (
-  select  event_date ,count(*) Day1_retention    from d1      where ld1 - event_date =1 
+  select2 event_date ,count(*) installs   from d1 where d2 = 1 group by event_date),rentention_time as (
+  select2  event_date ,count(*) Day1_retention    from d1      where ld1 - event_date =1 
   and d2 =1    group by event_date   ) 
-  select  to_char(d.event_date,'yyyy-mm-dd') install_dt ,d.installs,case when Day1_retention  is null then 0  else round(Day1_retention/installs,2)
+  select2  to_char(d.event_date,'yyyy-mm-dd') install_dt ,d.installs,case when Day1_retention  is null then 0  else round(Day1_retention/installs,2)
   end  Day1_retention from install_counts  d ,rentention_time d1 
   where d.event_date = d1.event_date(+)
   
   
-  with d  as   (select TRANSACTION_ID, CUSTOMER_ID,  TRANSACTION_DATE, AMOUNT  from Transactions  ),d1  as (
-select d.* ,dense_rank() over  ( partition by CUSTOMER_ID  order by TRANSACTION_DATE ) d1  from d ),d3  as (
-select  CUSTOMER_ID,TRANSACTION_DATE - d1 d2 ,count(*) c1  from d1
+  with d  as   (select2 TRANSACTION_ID, CUSTOMER_ID,  TRANSACTION_DATE, AMOUNT  from Transactions  ),d1  as (
+select2 d.* ,dense_rank() over  ( partition by CUSTOMER_ID  order by TRANSACTION_DATE ) d1  from d ),d3  as (
+select2  CUSTOMER_ID,TRANSACTION_DATE - d1 d2 ,count(*) c1  from d1
 group by TRANSACTION_DATE - d1,CUSTOMER_ID)
-select CUSTOMER_ID  from d3  where c1  in (select max(c1)  from d3) order by 1 
+select2 CUSTOMER_ID  from d3  where c1  in (select2 max(c1)  from d3) order by 1 
 
 ----------------
 
-with d  as  (select d.* ,  to_date(case when   substr( TRANSACTION_DATE,5,1) != 1 then    substr( TRANSACTION_DATE,1,4)|| '0'|| substr( TRANSACTION_DATE,5,1) || 
+with d  as  (select2 d.* ,  to_date(case when   substr( TRANSACTION_DATE,5,1) != 1 then    substr( TRANSACTION_DATE,1,4)|| '0'|| substr( TRANSACTION_DATE,5,1) || 
 lpad( substr( TRANSACTION_DATE,6,2),2,'0')  
 end ,'yyyymmdd') TRANSACTION_DATE1 from Transactions d),d1  as (
---select *  from d 
-select  d.* ,TRANSACTION_DATE1 - dense_rank()  over ( partition by customer_id order by TRANSACTION_DATE1) t1
+--select2 *  from d 
+select2  d.* ,TRANSACTION_DATE1 - dense_rank()  over ( partition by customer_id order by TRANSACTION_DATE1) t1
 from d ),d2  as (
-select  d1.* ,count(t1) over (partition by customer_id ,t1 ) c1   from d1),d3  as (
-select d2.* ,nvl(lead( amount)  over ( partition by  customer_id order by  TRANSACTION_DATE1) ,amount +10 ) t2 
+select2  d1.* ,count(t1) over (partition by customer_id ,t1 ) c1   from d1),d3  as (
+select2 d2.* ,nvl(lead( amount)  over ( partition by  customer_id order by  TRANSACTION_DATE1) ,amount +10 ) t2 
 from  d2  where c1  >=3 ),d4  as (
-select  d3.* ,count(customer_id ) over ( partition by customer_id )  c2   from d3  where t2> amount )
-select *  from d4  where c1 = c2 
+select2  d3.* ,count(customer_id ) over ( partition by customer_id )  c2   from d3  where t2> amount )
+select2 *  from d4  where c1 = c2 
 
-with d  as  (select  ORDER_ID, CUSTOMER_ID, substr(ORDER_DATE,1,4) ORDER_DATE, PRICE  from orders ),d1  as (
-select  customer_id ,sum(price)  price,ORDER_DATE from d  group by customer_id,ORDER_DATE)
-select d1.*  ,max(order_date)over ( partition by  customer_id )  -min( order_date)  over ( partition by  customer_id ) from d1
+with d  as  (select2  ORDER_ID, CUSTOMER_ID, substr(ORDER_DATE,1,4) ORDER_DATE, PRICE  from orders ),d1  as (
+select2  customer_id ,sum(price)  price,ORDER_DATE from d  group by customer_id,ORDER_DATE)
+select2 d1.*  ,max(order_date)over ( partition by  customer_id )  -min( order_date)  over ( partition by  customer_id ) from d1
 
 
 --------------------20230310
 
-with d  as  (select d.* ,count(d.TRANSACTION_DATE)  over  ( partition by  d.TRANSACTION_DATE) trans_count    from Transactions d),d1 as (
-select  unique  TRANSACTION_DATE, trans_count,user_id from d ),d2  as (
-select nvl(trans_count,0) transactions_count  ,count(*)visits_count    from d1 right outer join visits d on  d1.transaction_date   =   d.visit_date   and   d.user_id = d1.user_id 
+with d  as  (select2 d.* ,count(d.TRANSACTION_DATE)  over  ( partition by  d.TRANSACTION_DATE) trans_count    from Transactions d),d1 as (
+select2  unique  TRANSACTION_DATE, trans_count,user_id from d ),d2  as (
+select2 nvl(trans_count,0) transactions_count  ,count(*)visits_count    from d1 right outer join visits d on  d1.transaction_date   =   d.visit_date   and   d.user_id = d1.user_id 
 group by nvl(trans_count,0)  ) ,d3 as (
-select *  from d2 union all
-select  level ,0  from dual connect by level <= (select  max(trans_count)-1  from   d)
+select2 *  from d2 union all
+select2  level ,0  from dual connect by level <= (select2  max(trans_count)-1  from   d)
 )
-select  transactions_count,sum(visits_count) visits_count  from  d3 group by transactions_count order by 1 
+select2  transactions_count,sum(visits_count) visits_count  from  d3 group by transactions_count order by 1 
 
 ------------------
 
-with d as  ( select    ' '|| content || ' '  content ,post_id from posts),d1  
-as (select  ' ' ||  word || ' '  word  ,topic_id  from keywords),d2  as  (
-select  unique post_id ,topic_id   from d,d1
+with d as  ( select2    ' '|| content || ' '  content ,post_id from posts),d1  
+as (select2  ' ' ||  word || ' '  word  ,topic_id  from keywords),d2  as  (
+select2  unique post_id ,topic_id   from d,d1
 where   instr(upper(content) ,upper(word)) >= 1 ),d3  as (
-select    p.post_id,  
+select2    p.post_id,  
 --decode( d2.topic_id,null, 'Ambiguous!',d2.topic_id)
 listagg( d2.topic_id,',')  within  group (     order  by  d2.topic_id )  
  topic   from      d2 ,posts   p 
 where p.post_id =    d2.post_id (+)  group by  p.post_id  order by   1) 
-select  post_id ,decode( d3.topic,null, 'Ambiguous!',d3.topic) topic  from d3
+select2  post_id ,decode( d3.topic,null, 'Ambiguous!',d3.topic) topic  from d3
 ;
 
 
  with s1 as (
- select unique   d.user_id user1_id ,d1.user_id  user2_id ,d.day,d.song_id   from listens d ,listens d1 
+ select2 unique   d.user_id user1_id ,d1.user_id  user2_id ,d.day,d.song_id   from listens d ,listens d1 
  where ( d.song_id = d1.song_id  and  d.day = d1.day  ) and d.user_id != d1.user_id 
  order by 1,2),s2 as (
-select  user1_id,user2_id,day  from s1
+select2  user1_id,user2_id,day  from s1
 group  by user1_id,user2_id,day having count(*) >=3 ),s3 as  (
-select user1_id user_id , user2_id  recommended_id  from s2  minus 
-select *  from friendship)
-select *  from s3  where  (greatest(user_id,recommended_id),least(user_id,recommended_id)) not in 
- (select  greatest(user1_id,user2_id),least(user1_id,user2_id)  from  friendship)  
+select2 user1_id user_id , user2_id  recommended_id  from s2  minus 
+select2 *  from friendship)
+select2 *  from s3  where  (greatest(user_id,recommended_id),least(user_id,recommended_id)) not in 
+ (select2  greatest(user1_id,user2_id),least(user1_id,user2_id)  from  friendship)  
  
  -------------
- select *  from buses ;
-select *  from passengers d ,buses   d1 
+ select2 *  from buses ;
+select2 *  from passengers d ,buses   d1 
 where  d.arrival_time  <= d1.arrival_time   
  order by   d.arrival_time ,bus_id ;
  
- select  *  from passengers ;
+ select2  *  from passengers ;
  with   d1  as  (
- select d.*  , nvl(lag(arrival_time) over  (order by   arrival_time ),arrival_time )   next_arrival   from buses d )
- select *  from passengers d ,   d1 
+ select2 d.*  , nvl(lag(arrival_time) over  (order by   arrival_time ),arrival_time )   next_arrival   from buses d )
+ select2 *  from passengers d ,   d1 
 where  d.arrival_time  <= d1.arrival_time   
  order by   d.arrival_time ,bus_id ,passenger_id ;
 
 
-with d as  (select d.* ,rank()  over (  partition by  arrival_time order by passenger_id) a  from passengers  d )
-select *  from  d , buses  d1 
+with d as  (select2 d.* ,rank()  over (  partition by  arrival_time order by passenger_id) a  from passengers  d )
+select2 *  from  d , buses  d1 
 where  d.arrival_time  <= d1.arrival_time   
  order by   d.arrival_time ,bus_id ,passenger_id ; 
-select  *  from  dual where a =1234;
+select2  *  from  dual where a =1234;
 
 
 
